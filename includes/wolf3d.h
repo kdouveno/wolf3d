@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/17 14:21:26 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/20 14:56:20 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ typedef struct		s_ctab
 	int	cx;
 	int	cy;
 }					t_ctab;
+
+static const char	g_lab_chars[] = "o_s<>\\/dke ";
+static const char	g_meta_chars[] = {
+
+}
 
 /*
 **	Global Environment
