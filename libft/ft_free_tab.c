@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msgs.h                                             :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/21 15:02:54 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/21 17:03:26 by kdouveno         ###   ########.fr       */
+/*   Created: 2018/05/16 10:54:50 by kdouveno          #+#    #+#             */
+/*   Updated: 2018/05/16 11:39:06 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSGS_H
-# define MSGS_H
-# define FILE_ERROR "Wrong file format, aborting"
-# define MLX_ERROR "An error occured while attempting to intiate MLX"
-# define USAGE "usage : ./wolf3d <wolf3d file>"
-# define OPEN_ERROR "Fail to open the file"
-# define READ_ERROR "Fail to read the file"
-# define CLOSE_ERROR "Fail to close the file"
-# define MALLOC_ERROR "Dynamic allocation failed, aborting..."
-#endif
+#include "libft.h"
+
+void		ft_free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
