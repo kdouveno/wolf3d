@@ -12,35 +12,88 @@
 
 #include "wolf3d.h"
 
-void    base_left(t_env *e, t_pos *pos)
+void   add_wall(t_env *e, t_pos *pos, char dir)
 {
-	if (pos->l == NULL || (pos->l->m.x - pos->x * POS != 1))
+	t_base	*w;
 
-	else
-
-}
-
-void    base_up(t_env *e, t_pos *pos)
-{
-	if (pos->l_l == NULL || pos->l_l->m.y - pos->y * POS != 1)
-}
-
-void	add_base(t_env *e, t_pos *pos, char c)
-{
-	t_base out;
-	t_base up;
-
-	up.m = (t_pt){pos.x * PRES, pos.y * PRES, 1};
-	out.m = (t_pt){pos.x * PRES, pos.y * PRES, 0};
-	up.n = (t_vec){0, 0, -1};
-	out.n = (t_vec){0, 0, 1};
-	if (!e->lab)
+	if ((w = malloc(sizeof(*t_base))) == NULL)
+		error(MALLOC_ERROR);
+	w->m->obj.type = 0;
+	w->ceil = pos->cur;
+	if (dir == 'l' || dir = 'r')
 	{
-		if (!(e->lab = (t_base*)malloc(sizeof(t_base))))
-			error(MALLOC_ERROR);
-		*e->lab = out;
+		w->n = (t_pt){0, 0, 1};
+		if (dir == 'l')
+			pos->cur->xd = w;
+		else
+			pos->cur->xu = w;
 	}
-	if (!last.l)
-		last.l = e->lab;
+	else if (dir == 'u' || dir == 'd')
+	{
+		w->n = (t_pt){0, 1, 0};
+		if (dir == 'u')
+			pos->cur->yu = w;
+		else
+			pos->cur->yd = w;
+	}
+	w->m = (dir == 'l' || dir == 'u') ?
+		(t_pt){pos->cur->m.x, pos->cur->m.y, pos->cur->m.z} :
+		(t_pt){pos->cur->m.x, pos->cur->m.y + PRES, pos->cur->m.z + PRES};
+}
 
+void    wall_left(t_env *e, t_pos *pos)
+{
+	if (pos->l == NULL || (pos->l->m.x - pos->x * PRES != 1))
+		add_wall(e, pos, 'l');
+	else
+		pos->l->xu = pos->cur;
+
+}
+
+void    wall_up(t_env *e, t_pos *pos)
+{
+	if (pos->l_l == NULL || pos->l_l->m.y - pos->y * PRES != 1)
+		add_wall(e, pos, 'u');
+	else
+		pos->l_l->yd = pos->cur;
+}
+void	set_meta(t_pos *pos, **tab, char c)
+{
+	int i;
+	int i_m;
+
+	i = 0;
+	i_m = 0;
+	pos->obj->type = c;
+	while (c != g_meta_chars[i].c)
+		i++;
+	if (g_meta_chars[i].has_dir && tab[pos->tabi])
+		pos->obj->dir = ft_atoi(tab[pos->tabi++]);
+	else if (g_meta_chars[i].has_dir)
+		error(FILE_ERROR);
+	while (g_meta_chars[i].nbrparam > i_m)
+	{
+		if (tab[pos->tabi])
+			pos->obj->meta[i_m] = ft_atoi(tab[pos->tabi]);
+		else
+			error(FILE_ERROR);
+		i_m++;
+	}
+}
+
+void	add_base(t_env *e, t_pos *pos, char **tab, char c)
+{
+	if (!(pos->cur = (t_base*)malloc(sizeof(t_base)))
+	|| !(pos->cur->ceil = (t_base)malloc(sizeof(t_base))))
+		error(MALLOC_ERROR);
+	pos->cur->m = (t_pt){pos.x * PRES, pos.y * PRES, 0};
+	pos->cur->n = (t_vec){0, 0, 1};
+	pos->cur->ceil->m = (t_pt){pos.x * PRES, pos.y * PRES, PRES};
+	pos->cur->ceil->n = pos->cur->n;
+	set_meta(pos, tab, c);
+	if (!e->labstart)
+		e->labstart = pos->cur;
+	else
+		pos->l->next = pos->cur;
+	pos->l = pos->cur;
 }

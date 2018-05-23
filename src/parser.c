@@ -14,29 +14,9 @@
 
 int			check_meta(char *line, int i)
 {
-	int i_m;
-	int last;
-
-	last = 0;
-	while (line[i] != '\0')
-	{
-		while (line[i] == ' ')
-			i++;
-		i_m = 0;
-		while (last == 0 && line[i] != g_meta_chars[i_m].c
-			&& g_meta_chars[i_m].c)
-			i_m++;
-		if (g_meta_chars[i_m].c == '\0')
-			return (1);
-		else if (last == 0)
-			last = g_meta_chars[i_m].nbrparam;
-		else if (ft_isdigit(line[i]) && !ft_isdigit(line[i + 1]))
-			last--;
-		else if (!ft_isdigit(line[i]))
-			return (1);
+	while (line[i] != '\0' && (ft_isdigit(line[i]) || line[i] == ' '))
 		i++;
-	}
-	return (last > 0);
+	return (line[i] != '\0');
 }
 
 int			check_line(char *line)
@@ -48,9 +28,9 @@ int			check_line(char *line)
 	while (line[i] != '|' && line[i] != '\0')
 	{
 		i_l = 0;
-		while (line[i] != g_lab_chars[i_l] && g_lab_chars[i_l])
+		while (line[i] != g_meta_chars[i_l].c && g_meta_chars[i_l].c)
 			i_l++;
-		if (g_lab_chars[i_l] == '\0')
+		if (g_meta_chars[i_l].c == '\0')
 			return (1);
 		i++;
 	}
@@ -59,15 +39,19 @@ int			check_line(char *line)
 
 void	parse_line(t_env *e, t_last *last, char *lab, char **tab)
 {
+	int i;
+
+	i = 0;
 	last.x = 0;
 	while (lab[i])
 	{
 		if (lab[i] != ' ')
 		{
-			add_base(e, last, tab[i]);
-			last->l = e->lab->
+			if (lab[i] != '_')
+				add_base(e, last, tab[i]);
+			last.x++;
 		}
-		last.x++;
+		i++;
 	}
 	last.y++;
 	ft_free_tab(tab);
@@ -79,9 +63,9 @@ void		parse(t_env *e, char *path)
 	int		fd;
 	int		check;
 	char	**tab;
-	t_last	last;
+	t_pos	pos;
 
-	last = {NULL, NULL, NULL, NULL, NULL};
+	pos = {NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0};
 	if ((fd = open(path, O_RDONLY)) == -1)
 		error(e, OPEN_ERROR);
 	while ((check = get_next_line(fd, &line)) >= 1)
@@ -89,8 +73,9 @@ void		parse(t_env *e, char *path)
 		if (check_line(line))
 			error(e, FILE_ERROR);
 		tab = ft_strsplit(line, '|');
-		parse_line(e, tab[0], (!tab[0] && !tab[1] ? ft_strsplit(tab[1], ' ')
-		: NULL), &last);
+		pos.tabi = 0;
+		parse_line(e, &pos, tab[0], (!tab[0] && !tab[1] ? ft_strsplit(tab[1], ' ')
+		: NULL));
 		free(line);
 	}
 	if (check == -1)

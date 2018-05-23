@@ -20,6 +20,7 @@
 # define DIMX 1600
 # define DIMY 900
 # define PRES 10000
+# define NBR_PARAM_MAX 2
 # include <fcntl.h>
 
 # include <stdio.h>
@@ -59,7 +60,8 @@ typedef struct		s_peer
 typedef struct		s_obj
 {
 	char			type;
-	int				meta[2];
+	metadir			dir;
+	int				meta[NBR_PARAM_MAX];
 }					t_obj;
 
 typedef struct			s_pos
@@ -72,6 +74,7 @@ typedef struct			s_pos
 	t_peer		*peer;
 	int			x;
 	int			y;
+	int			tabi;
 }						t_pos;
 
 typedef struct			s_base
@@ -86,12 +89,17 @@ typedef struct			s_base
 	struct s_base		*yd;
 	struct s_base		*ceil;
 	struct s_base		*next;
-
 }						t_base;
 
 /*
 **	Miscellenous
 */
+
+typedef enum metadir
+{
+	CENTER, UP, RIGHT, DOWN, LEFT
+};
+
 typedef struct			s_ctab
 {
 	int	cx;
@@ -101,14 +109,19 @@ typedef struct			s_ctab
 typedef struct			s_params
 {
 	char				c;
+	int					has_dir;
 	int					nbrparam;
 }						t_params;
 
-static const char		g_lab_chars[] = "o_s<>\\/dke ";
 static const t_params	g_meta_chars[] = {
-	{'P', 2},
-	{'K', 1},
-	{'D', 1},
+	{'o', 0, 0},
+	{'p', 1, 2},
+	{'k', 0, 1},
+	{'d', 1, 1},
+	{'e', 0, 0},
+	{'s', 0, 0},
+	{'_', 0, 0},
+	{' ', 0, 0},
 	{'\0', 0}
 };
 

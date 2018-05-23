@@ -30,7 +30,7 @@ int		init(t_env *e)
 	|| (e->mlx.img = (int*)mlx_get_data_addr(e->mlx.imgptr, e->mlx.imgarg,
 		e->mlx.imgarg + 1, e->mlx.imgarg + 2)) == NULL)
 		error(e, MLX_ERROR);
-	e->lab = NULL;
+	e->labstart = NULL;
 	return (0);
 }
 

@@ -29,7 +29,7 @@ FM = $(addprefix -framework ,$(FM_LIST))
 
 INCDIR = -Ilibft/includes -Iincludes
 
-all: $(NAME)
+all: pain
 
 BLUE = \033[38;5;117m
 RED = \033[38;5;203m
@@ -42,9 +42,14 @@ $(NAME): $(OBJS) libft/*.c libft/includes/libft.h
 	@$(CC) $(FLAGS) $(FM) libmlx.a libft/libft.a $(OBJS) -o $@
 	@printf "$(MAGENTA)%15s : $(GREEN)succesfuly made!%20.0d\n" $(NAME) 0
 
+pain: $(OBJS) libft/*.c libft/includes/libft.h
+	@make -C libft
+	@$(CC) $(FLAGS) libmlx.a libft/libft.a $(OBJS) -o $@
+	@printf "$(MAGENTA)%15s : $(GREEN)succesfuly made!%20.0d\n" $(NAME) 0
+
 %.o: $(SRC_DIR)%.c includes/wolf3d.h
 	@printf "$(MAGENTA)%15s : $(BLUE)%-20s$(WHITE) ... \r" $(NAME) $(<F)
-	@gcc $(FLAGS) $(INCDIR) -c $^
+	@gcc $(FLAGS) $(INCDIR) -c $<
 	@printf "$(MAGENTA)%15s : $(BLUE)%-20s$(GREEN) done \n" $(NAME) $(<F)
 
 clean:
