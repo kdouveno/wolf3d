@@ -37,23 +37,23 @@ int			check_line(char *line)
 	return (line[i] == '|' ? check_meta(line, i + 1) : 0);
 }
 
-void	parse_line(t_env *e, t_last *last, char *lab, char **tab)
+void	parse_line(t_env *e, t_pos *pos, char *lab, char **tab)
 {
 	int i;
 
 	i = 0;
-	last.x = 0;
+	pos->x = 0;
 	while (lab[i])
 	{
 		if (lab[i] != ' ')
 		{
 			if (lab[i] != '_')
-				add_base(e, last, tab[i]);
-			last.x++;
+				add_base(e, pos, tab, lab[i]);
+			pos->x++;
 		}
 		i++;
 	}
-	last.y++;
+	pos->y++;
 	ft_free_tab(tab);
 }
 
@@ -65,7 +65,7 @@ void		parse(t_env *e, char *path)
 	char	**tab;
 	t_pos	pos;
 
-	pos = {NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0};
+	pos = (t_pos){NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0};
 	if ((fd = open(path, O_RDONLY)) == -1)
 		error(e, OPEN_ERROR);
 	while ((check = get_next_line(fd, &line)) >= 1)

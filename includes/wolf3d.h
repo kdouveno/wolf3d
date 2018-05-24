@@ -72,9 +72,9 @@ typedef struct			s_pos
 	t_base		*l_l;
 	t_base		*l;
 	t_peer		*peer;
+	int			tabi;
 	int			x;
 	int			y;
-	int			tabi;
 }						t_pos;
 
 typedef struct			s_base
@@ -146,6 +146,7 @@ typedef struct			s_env
 void					parse(t_env *e, char *path);
 int						check_line(char *line);
 int						check_meta(char *line, int i);
+void 					add_base(t_env *e, t_pos *pos, char **tab, char c);
 void					error(t_env *e, char *msg);
 
 #endif

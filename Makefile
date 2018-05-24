@@ -17,7 +17,8 @@ FLAGS = -Wall -Wextra -Werror
 
 SRC_DIR =	src/
 SRC_LIST =	main.c\
-			parser.c
+			parser.c \
+			ft_parse_line.c \
 
 OBJS = $(SRC_LIST:.c=.o)
 SRCS = $(addprefix $(SRC_DIR),$(SRC_LIST))
