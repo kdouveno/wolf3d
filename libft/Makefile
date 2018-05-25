@@ -6,7 +6,7 @@
 #    By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/15 15:48:03 by kdouveno          #+#    #+#              #
-#    Updated: 2018/05/20 18:40:31 by kdouveno         ###   ########.fr        #
+#    Updated: 2018/05/25 18:24:59 by gperez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS = ft_atoi.c\
   ft_putnbr_fd.c\
   ft_putstr.c\
   ft_putstr_fd.c\
+  ft_puttab_s.c \
   ft_strcat.c\
   ft_strchr.c\
   ft_strclr.c\

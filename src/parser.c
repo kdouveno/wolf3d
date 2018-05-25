@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:56 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/25 16:33:42 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/25 18:39:07 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	parse_line(t_env *e, t_pos *pos, char *lab, char **tab)
 	int i;
 
 	i = 0;
+
 	pos->x = 0;
 	while (lab[i])
 	{
@@ -54,7 +55,7 @@ void	parse_line(t_env *e, t_pos *pos, char *lab, char **tab)
 		i++;
 	}
 	pos->y++;
-	//ft_free_tab(tab);
+	ft_free_tab(tab);
 }
 
 void		parse(t_env *e, char *path)
@@ -73,9 +74,11 @@ void		parse(t_env *e, char *path)
 		if (check_line(line))
 			error(e, FILE_ERROR);
 		tab = ft_strsplit(line, '|');
+		ft_puttab_s(tab, 0);
+		ft_putendl("");
 		pos.tabi = 0;
-		parse_line(e, &pos, tab[0], (!tab[0] && !tab[1] ? ft_strsplit(tab[1], ' ')
-		: NULL));
+		parse_line(e, &pos, tab[0], (tab[0] != NULL && tab[1] != NULL
+		? ft_strsplit(tab[1], ' ') : NULL));
 		free(line);
 	}
 	if (check == -1)

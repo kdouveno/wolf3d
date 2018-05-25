@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 09:43:49 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/16 10:55:34 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/25 18:26:40 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			ft_putendl(const char *c);
 void			ft_putendl_fd(const char *c, int fd);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putnbr(int n);
+void            ft_puttab_s(char **tab, int space);
 char			*ft_itoa(int n);
 char			**ft_strsplit(char const *s, char c);
 void			ft_free_tab(char **tab);

@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/25 15:56:51 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/25 20:39:11 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void   add_wall(t_env *e, t_pos *pos, char dir)
 {
 	t_base	*w;
 
+	ft_putstr("Create wall ");
+	ft_putchar(dir);
+	ft_putchar('\n');
 	if ((w = malloc(sizeof(t_base))) == NULL)
 		error(e, MALLOC_ERROR);
 	w->obj.type = 0;
@@ -43,7 +46,7 @@ void   add_wall(t_env *e, t_pos *pos, char dir)
 
 void    wall_left(t_env *e, t_pos *pos)
 {
-	if (pos->l == NULL || (pos->l->m.x - pos->x * PRES != 1))
+	if (pos->l == NULL || (pos->x * PRES - pos->l->m.x != PRES))
 		add_wall(e, pos, 'l');
 	else
 		pos->l->xu = pos->cur;
@@ -52,11 +55,24 @@ void    wall_left(t_env *e, t_pos *pos)
 
 void    wall_up(t_env *e, t_pos *pos)
 {
-	if (pos->l_l == NULL || pos->l_l->m.y - pos->y * PRES != 1)
+	if (pos->l_l == NULL || (pos->y * PRES - pos->l_l->m.y != PRES))
 		add_wall(e, pos, 'u');
 	else
 		pos->l_l->yd = pos->cur;
 }
+
+/*
+void   wall_right(t_env *e, t_pos *pos)
+{
+	add_wall(e, pos, 'r')
+}
+
+void   wall_down(t_env *e, t_pos *pos)
+{
+	add_wall(e, pos, 'd')
+}
+
+*/
 void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 {
 	int i;
@@ -73,7 +89,7 @@ void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 		error(e, FILE_ERROR);
 	while (g_meta_chars[i].nbrparam > i_m)
 	{
-		if (tab[pos->tabi])
+		if (tab != NULL && tab[pos->tabi])
 			pos->cur->obj.meta[i_m] = ft_atoi(tab[pos->tabi]);
 		else
 			error(e, FILE_ERROR);
@@ -95,5 +111,7 @@ void	add_base(t_env *e, t_pos *pos, char **tab, char c)
 		e->labstart = pos->cur;
 	else
 		pos->l->next = pos->cur;
+	wall_up(e, pos);
+	wall_left(e, pos);
 	pos->l = pos->cur;
 }
