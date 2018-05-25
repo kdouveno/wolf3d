@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/21 18:06:03 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/25 16:27:52 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,17 @@ typedef struct		s_peer
 	struct s_peer 	*next;
 }					t_peer;
 
+typedef enum            e_metadir
+{
+	CENTER, UP, RIGHT, DOWN, LEFT
+}						t_metadir;
+
 typedef struct		s_obj
 {
 	char			type;
-	metadir			dir;
+	t_metadir		dir;
 	int				meta[NBR_PARAM_MAX];
 }					t_obj;
-
-typedef struct			s_pos
-{
-	t_base		*cur;
-	t_base		*s;
-	t_base		*e;
-	t_base		*l_l;
-	t_base		*l;
-	t_peer		*peer;
-	int			tabi;
-	int			x;
-	int			y;
-}						t_pos;
 
 typedef struct			s_base
 {
@@ -91,14 +83,24 @@ typedef struct			s_base
 	struct s_base		*next;
 }						t_base;
 
+typedef struct			s_pos
+{
+	t_base		*cur;
+	t_base		*s;
+	t_base		*e;
+	t_base		*l_l;
+	t_base		*l;
+	t_peer		*peer;
+	int			tabi;
+	int			x;
+	int			y;
+}						t_pos;
+
+
 /*
 **	Miscellenous
 */
 
-typedef enum metadir
-{
-	CENTER, UP, RIGHT, DOWN, LEFT
-};
 
 typedef struct			s_ctab
 {
@@ -122,7 +124,7 @@ static const t_params	g_meta_chars[] = {
 	{'s', 0, 0},
 	{'_', 0, 0},
 	{' ', 0, 0},
-	{'\0', 0}
+	{'\0', 0, 0}
 };
 
 /*
@@ -147,6 +149,7 @@ void					parse(t_env *e, char *path);
 int						check_line(char *line);
 int						check_meta(char *line, int i);
 void 					add_base(t_env *e, t_pos *pos, char **tab, char c);
+int                    ft_test(t_env *e);
 void					error(t_env *e, char *msg);
 
 #endif

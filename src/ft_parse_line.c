@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/21 18:06:03 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/25 15:56:51 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void   add_wall(t_env *e, t_pos *pos, char dir)
 {
 	t_base	*w;
 
-	if ((w = malloc(sizeof(*t_base))) == NULL)
-		error(MALLOC_ERROR);
-	w->m->obj.type = 0;
+	if ((w = malloc(sizeof(t_base))) == NULL)
+		error(e, MALLOC_ERROR);
+	w->obj.type = 0;
 	w->ceil = pos->cur;
-	if (dir == 'l' || dir = 'r')
+	if (dir == 'l' || dir == 'r')
 	{
 		w->n = (t_pt){0, 0, 1};
 		if (dir == 'l')
@@ -57,26 +57,26 @@ void    wall_up(t_env *e, t_pos *pos)
 	else
 		pos->l_l->yd = pos->cur;
 }
-void	set_meta(t_pos *pos, **tab, char c)
+void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 {
 	int i;
 	int i_m;
 
 	i = 0;
 	i_m = 0;
-	pos->obj->type = c;
+	pos->cur->obj.type = c;
 	while (c != g_meta_chars[i].c)
 		i++;
 	if (g_meta_chars[i].has_dir && tab[pos->tabi])
-		pos->obj->dir = ft_atoi(tab[pos->tabi++]);
+		pos->cur->obj.dir = ft_atoi(tab[pos->tabi++]);
 	else if (g_meta_chars[i].has_dir)
-		error(FILE_ERROR);
+		error(e, FILE_ERROR);
 	while (g_meta_chars[i].nbrparam > i_m)
 	{
 		if (tab[pos->tabi])
-			pos->obj->meta[i_m] = ft_atoi(tab[pos->tabi]);
+			pos->cur->obj.meta[i_m] = ft_atoi(tab[pos->tabi]);
 		else
-			error(FILE_ERROR);
+			error(e, FILE_ERROR);
 		i_m++;
 	}
 }
@@ -84,13 +84,13 @@ void	set_meta(t_pos *pos, **tab, char c)
 void	add_base(t_env *e, t_pos *pos, char **tab, char c)
 {
 	if (!(pos->cur = (t_base*)malloc(sizeof(t_base)))
-	|| !(pos->cur->ceil = (t_base)malloc(sizeof(t_base))))
-		error(MALLOC_ERROR);
-	pos->cur->m = (t_pt){pos.x * PRES, pos.y * PRES, 0};
+	|| !(pos->cur->ceil = (t_base*)malloc(sizeof(t_base))))
+		error(e, MALLOC_ERROR);
+	pos->cur->m = (t_pt){pos->x * PRES, pos->y * PRES, 0};
 	pos->cur->n = (t_vec){0, 0, 1};
-	pos->cur->ceil->m = (t_pt){pos.x * PRES, pos.y * PRES, PRES};
+	pos->cur->ceil->m = (t_pt){pos->x * PRES, pos->y * PRES, PRES};
 	pos->cur->ceil->n = pos->cur->n;
-	set_meta(pos, tab, c);
+	set_meta(e, pos, tab, c);
 	if (!e->labstart)
 		e->labstart = pos->cur;
 	else

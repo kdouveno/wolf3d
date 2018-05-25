@@ -6,7 +6,7 @@
 #    By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/15 15:48:03 by kdouveno          #+#    #+#              #
-#    Updated: 2018/05/20 18:39:47 by kdouveno         ###   ########.fr        #
+#    Updated: 2018/05/25 16:13:52 by gperez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC_DIR =	src/
 SRC_LIST =	main.c\
 			parser.c \
 			ft_parse_line.c \
+			ft_test.c \
 
 OBJS = $(SRC_LIST:.c=.o)
 SRCS = $(addprefix $(SRC_DIR),$(SRC_LIST))
@@ -30,7 +31,7 @@ FM = $(addprefix -framework ,$(FM_LIST))
 
 INCDIR = -Ilibft/includes -Iincludes
 
-all: pain
+all: $(NAME)
 
 BLUE = \033[38;5;117m
 RED = \033[38;5;203m

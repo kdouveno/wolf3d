@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:45 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/21 16:42:13 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/25 16:33:53 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 		return (0);
-	(void)env;
 	parse(&env, argv[1]);
-	init(&env);
+	if (ft_test(&env) == 0)
+		init(&env);
 	return (0);
 }

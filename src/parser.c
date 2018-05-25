@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:56 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/21 17:32:42 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/25 16:33:42 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	parse_line(t_env *e, t_pos *pos, char *lab, char **tab)
 		i++;
 	}
 	pos->y++;
-	ft_free_tab(tab);
+	//ft_free_tab(tab);
 }
 
 void		parse(t_env *e, char *path)
