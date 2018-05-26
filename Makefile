@@ -6,7 +6,7 @@
 #    By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/15 15:48:03 by kdouveno          #+#    #+#              #
-#    Updated: 2018/05/25 16:13:52 by gperez           ###   ########.fr        #
+#    Updated: 2018/05/26 17:51:41 by kdouveno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ FLAGS = -Wall -Wextra -Werror
 SRC_DIR =	src/
 SRC_LIST =	main.c\
 			parser.c \
-			ft_parse_line.c \
-			ft_test.c \
+			ft_parse_line.c\
+			ft_test.c\
+			walls.c\
 
 OBJS = $(SRC_LIST:.c=.o)
 SRCS = $(addprefix $(SRC_DIR),$(SRC_LIST))

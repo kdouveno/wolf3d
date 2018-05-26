@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/25 18:15:53 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/26 17:56:26 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct			s_pos
 	int			y;
 }						t_pos;
 
-
 /*
 **	Miscellenous
 */
@@ -119,7 +118,7 @@ static const t_params	g_meta_chars[] = {
 	{'o', 0, 0},
 	{'p', 1, 2},
 	{'k', 0, 1},
-	{'d', 1, 2},
+	{'d', 1, 1},
 	{'e', 0, 0},
 	{'s', 0, 0},
 	{'_', 0, 0},
@@ -148,8 +147,12 @@ typedef struct			s_env
 void					parse(t_env *e, char *path);
 int						check_line(char *line);
 int						check_meta(char *line, int i);
-void 					add_base(t_env *e, t_pos *pos, char **tab, char c);
-int                    ft_test(t_env *e);
+void					add_base(t_env *e, t_pos *pos, char **tab, char c);
+int						ft_test(t_env *e);
 void					error(t_env *e, char *msg);
+t_base					*add_wall(t_env *e, t_pos *pos);
+void					wall_left(t_env *e, t_pos *pos);
+void					wall_up(t_env *e, t_pos *pos);
+void					finish(t_env *e, t_pos *pos);
 
 #endif
