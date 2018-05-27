@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/26 17:48:31 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/27 15:14:02 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 	while (g_meta_chars[i].nbrparam > i_m)
 	{
 		if (tab != NULL && tab[pos->tabi])
-			pos->cur->obj.meta[i_m] = ft_atoi(tab[pos->tabi]);
+			pos->cur->obj.meta[i_m] = ft_atoi(tab[pos->tabi++]);
 		else
 			error(e, FILE_ERROR);
 		i_m++;
 	}
+	pos->cur->obj.cor = 1;
 }
 
 void	manage_ll(t_env *e, t_pos *pos)
@@ -60,6 +61,7 @@ void	add_base(t_env *e, t_pos *pos, char **tab, char c)
 	pos->cur->ceil->m = (t_pt){pos->x * PRES, pos->y * PRES, PRES};
 	pos->cur->ceil->n = pos->cur->n;
 	set_meta(e, pos, tab, c);
+	check_peer(e, pos);
 	if (!e->labstart)
 		e->labstart = pos->cur;
 	else

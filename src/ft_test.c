@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 16:03:15 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/26 17:52:41 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/27 15:12:40 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		ft_test_next(t_env *e, int n)
 {
 	t_base	*save;
 	int		nb_pos;
+	int     i;
 
 	nb_pos = 0;
 	save = e->labstart;
@@ -24,15 +25,32 @@ int		ft_test_next(t_env *e, int n)
 		if (nb_pos != save->m.y)
 			ft_putchar('\n');
 		ft_putchar(save->obj.type);
+		ft_putchar(' ');
 		nb_pos = save->m.y;
 		if (n == 1)
 		{
+			/*
 			ft_putchar('\n');
 			ft_putnbr(save->m.x);
 			ft_putchar(' ');
 			ft_putnbr(save->m.y);
 			ft_putchar(' ');
 			ft_putnbr(save->m.z);
+			ft_putchar('\n');
+			*/
+			ft_putstr("dir: ");
+			ft_putnbr(save->obj.dir);
+			ft_putchar(' ');
+			ft_putstr("meta: ");
+			i = 0;
+			while (i < NBR_PARAM_MAX)
+			{
+				ft_putnbr(save->obj.meta[i]);
+				ft_putchar(' ');
+				i++;
+			}
+			ft_putstr("cor: ");
+			ft_putnbr(save->obj.cor);
 			ft_putchar('\n');
 		}
 		save = save->next;
@@ -59,24 +77,12 @@ int    ft_test_rec(t_base *e, int nb_pos)
 	return (0);
 }
 
-// int    ft_test_iso(t_base *e, int nb_pos)
-// {
-// 	while (e){
-// 		printf("n: (%d, %d, %d); m: (%d, %d, %d);\n\t",
-// 		e->n.x, e->n.y, e->n.z,
-// 		e->m.x, e->m.y, e->m.z,
-// 		);
-// 		e = e->next;
-// 	}
-// 	return (0);
-// }
-
 int		ft_test(t_env *e)
 {
 	t_base *save;
 
 	save = e->labstart;
-	ft_test_rec(save, 1);
-	// ft_test_next(e, 1);
+	//ft_test_rec(save, 1);
+ 	ft_test_next(e, 1);
 	return (0);
 }

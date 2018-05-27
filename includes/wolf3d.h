@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/26 17:56:26 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/27 15:13:52 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,7 @@ typedef t_3d		t_pt;
 **	'f': fake Wall3
 */
 
-typedef struct		s_peer
-{
-	char			type;
-	int				a;
-	int				b;
-	int				id;
-	struct s_peer 	*next;
-}					t_peer;
-
-typedef enum            e_metadir
+typedef enum		e_metadir
 {
 	CENTER, UP, RIGHT, DOWN, LEFT
 }						t_metadir;
@@ -67,6 +58,7 @@ typedef struct		s_obj
 	char			type;
 	t_metadir		dir;
 	int				meta[NBR_PARAM_MAX];
+	int				cor;
 }					t_obj;
 
 typedef struct			s_base
@@ -82,6 +74,13 @@ typedef struct			s_base
 	struct s_base		*ceil;
 	struct s_base		*next;
 }						t_base;
+
+typedef struct		s_peer
+{
+	t_base			*base;
+	int				id;
+	struct s_peer 	*next;
+}					t_peer;
 
 typedef struct			s_pos
 {
@@ -112,18 +111,19 @@ typedef struct			s_params
 	char				c;
 	int					has_dir;
 	int					nbrparam;
+	char				match;
 }						t_params;
 
 static const t_params	g_meta_chars[] = {
-	{'o', 0, 0},
-	{'p', 1, 2},
-	{'k', 0, 1},
-	{'d', 1, 1},
-	{'e', 0, 0},
-	{'s', 0, 0},
-	{'_', 0, 0},
-	{' ', 0, 0},
-	{'\0', 0, 0}
+	{'o', 0, 0, '\0'},
+	{'p', 1, 2, 'p'},
+	{'k', 0, 1, 'd'},
+	{'d', 1, 1, 'k'},
+	{'e', 0, 0, 's'},
+	{'s', 0, 0, 'e'},
+	{'_', 0, 0, '\0'},
+	{' ', 0, 0, '\0'},
+	{'\0', 0, 0, '\0'}
 };
 
 /*
@@ -154,5 +154,6 @@ t_base					*add_wall(t_env *e, t_pos *pos);
 void					wall_left(t_env *e, t_pos *pos);
 void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
+void					check_peer(t_env *e, t_pos *pos);
 
 #endif
