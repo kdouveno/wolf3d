@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 13:35:13 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/29 09:53:16 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/29 12:14:57 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,16 @@ void	check_peer(t_env *e, t_pos *pos)
 	while (g_meta_chars[i].c != pos->cur->obj.type)
 		i++;
 	pb = pos->peer;
-	while (pb && g_meta_chars[i].match != pb->base->obj.type &&
-	pos->cur->obj.meta[0] == pb->id)
+	ft_putchar(pos->cur->obj.type);
+	while (pb && g_meta_chars[i].match != 0 &&
+		g_meta_chars[i].match != pb->base->obj.type)
 		pb = pb->next;
-	if (pb)
+	if (pb && (g_meta_chars[i].match == '\0' || pb->id == pos->cur->obj.meta[0]))
 	{
+		if (g_meta_chars[i].match != 0)
+			pb->base->obj.cor = 0;
 		pos->cur->obj.cor = 0;
-		pb->base->obj.cor = 0;
 	}
-	else
+	else if (g_meta_chars[i].match != 0)
 		add_peer(e, pos);
 }
