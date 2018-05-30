@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/29 09:34:33 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/30 15:51:06 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define DIMY 900
 # define PRES 10000
 # define NBR_PARAM_MAX 2
+# define FOV 85
 # include <fcntl.h>
 
 # include <stdio.h>
@@ -29,15 +30,15 @@
 **	3D PART
 */
 
-typedef struct		s_3d
+typedef struct			s_3d
 {
-	int	x;
-	int	y;
-	int	z;
-}					t_3d;
+	int					x;
+	int					y;
+	int					z;
+}						t_3d;
 
-typedef t_3d		t_vec;
-typedef t_3d		t_pt;
+typedef t_3d			t_vec;
+typedef t_3d			t_pt;
 
 /*
 **	Wolf3d Labyrinth shape storage
@@ -48,18 +49,25 @@ typedef t_3d		t_pt;
 **	'f': fake Wall3
 */
 
-typedef enum		e_metadir
+typedef struct			s_cam
+{
+	t_3d				p;
+	double				fov;
+	t_vec				dir;
+}						t_cam;
+
+typedef enum			e_metadir
 {
 	CENTER, UP, RIGHT, DOWN, LEFT
 }						t_metadir;
 
-typedef struct		s_obj
+typedef struct			s_obj
 {
-	char			type;
-	t_metadir		dir;
-	int				meta[NBR_PARAM_MAX];
-	int				cor;
-}					t_obj;
+	char				type;
+	t_metadir			dir;
+	int					meta[NBR_PARAM_MAX];
+	int					cor;
+}						t_obj;
 
 typedef struct			s_base
 {
@@ -75,24 +83,24 @@ typedef struct			s_base
 	struct s_base		*next;
 }						t_base;
 
-typedef struct		s_peer
+typedef struct			s_peer
 {
-	t_base			*base;
-	int				id;
-	struct s_peer 	*next;
-}					t_peer;
+	t_base				*base;
+	int					id;
+	struct s_peer		*next;
+}						t_peer;
 
 typedef struct			s_pos
 {
-	t_base		*cur;
-	t_base		*s;
-	t_base		*e;
-	t_base		*l_l;
-	t_base		*l;
-	t_peer		*peer;
-	int			tabi;
-	int			x;
-	int			y;
+	t_base				*cur;
+	t_base				*s;
+	t_base				*e;
+	t_base				*l_l;
+	t_base				*l;
+	t_peer				*peer;
+	int					tabi;
+	int					x;
+	int					y;
 }						t_pos;
 
 /*
@@ -142,6 +150,7 @@ typedef struct			s_env
 {
 	t_mlx				mlx;
 	t_base				*labstart;
+	t_cam				cam;
 }						t_env;
 
 void					parse(t_env *e, char *path);
@@ -155,5 +164,7 @@ void					wall_left(t_env *e, t_pos *pos);
 void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
+void					algo(t_env *e);
+}
 
 #endif

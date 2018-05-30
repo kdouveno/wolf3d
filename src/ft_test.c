@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 16:03:15 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/27 15:12:40 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/30 14:31:47 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_test_next(t_env *e, int n)
 		nb_pos = save->m.y;
 		if (n == 1)
 		{
-			/*
+
 			ft_putchar('\n');
 			ft_putnbr(save->m.x);
 			ft_putchar(' ');
@@ -37,11 +37,11 @@ int		ft_test_next(t_env *e, int n)
 			ft_putchar(' ');
 			ft_putnbr(save->m.z);
 			ft_putchar('\n');
-			*/
+			/*
 			ft_putstr("dir: ");
 			ft_putnbr(save->obj.dir);
 			ft_putchar(' ');
-			ft_putstr("meta: ");
+			ft_putstr("meta: ");*/
 			i = 0;
 			while (i < NBR_PARAM_MAX)
 			{

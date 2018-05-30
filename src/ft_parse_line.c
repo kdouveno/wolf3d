@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/29 09:34:26 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/30 14:33:52 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 		i_m++;
 	}
 	pos->cur->obj.cor = 1;
+	if (pos->cur->obj.type == 's')
+		e->cam.p = (t_pt){pos->cur->m.x / 2, pos->cur->m.y / 2, pos->cur->m.z};
 }
 
 void	manage_ll(t_env *e, t_pos *pos)

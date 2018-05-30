@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:45 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/27 13:27:56 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:23:12 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int		init(t_env *e)
 	|| (e->mlx.img = (int*)mlx_get_data_addr(e->mlx.imgptr, e->mlx.imgarg,
 		e->mlx.imgarg + 1, e->mlx.imgarg + 2)) == NULL)
 		error(e, MLX_ERROR);
-	e->labstart = NULL;
+	e->cam.dir = (t_vec){DIMX / tan(e->cam.fov / 2), DIMX / 2, DIMY / 2};
+	e->cam.fov = FOV;
+	algo(t_env);
 	return (0);
 }
 
@@ -40,6 +42,7 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 		return (0);
+	env.labstart = NULL;
 	parse(&env, argv[1]);
 	if (ft_test(&env) == 0)
 		init(&env);
