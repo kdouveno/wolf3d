@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:45 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/30 16:23:12 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/31 14:58:46 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		init(t_env *e)
 		e->mlx.imgarg + 1, e->mlx.imgarg + 2)) == NULL)
 		error(e, MLX_ERROR);
 	e->cam.dir = (t_vec){DIMX / tan(e->cam.fov / 2), DIMX / 2, DIMY / 2};
+	e->cam.v_u = (t_vec){PRES,PRES,0}
 	e->cam.fov = FOV;
 	algo(t_env);
 	return (0);

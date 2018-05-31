@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/30 15:51:06 by gperez           ###   ########.fr       */
+/*   Updated: 2018/05/31 17:19:57 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define NBR_PARAM_MAX 2
 # define FOV 85
 # include <fcntl.h>
+# include <math.h>
 
 # include <stdio.h>
 
@@ -54,6 +55,8 @@ typedef struct			s_cam
 	t_3d				p;
 	double				fov;
 	t_vec				dir;
+	t_vec				v_u;
+	t_base				*cur;
 }						t_cam;
 
 typedef enum			e_metadir
@@ -122,6 +125,7 @@ typedef struct			s_params
 	char				match;
 }						t_params;
 
+
 static const t_params	g_meta_chars[] = {
 	{'o', 0, 0, '\0'},
 	{'p', 1, 2, 'p'},
@@ -133,6 +137,7 @@ static const t_params	g_meta_chars[] = {
 	{' ', 0, 0, '\0'},
 	{'\0', 0, 0, '\0'}
 };
+
 
 /*
 **	Global Environment
@@ -165,6 +170,9 @@ void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 void					algo(t_env *e);
-}
+int						scan(t_env *e, t_pt p);
+
+t_vec					ft_norm_vec(t_vec v, int n);
+
 
 #endif

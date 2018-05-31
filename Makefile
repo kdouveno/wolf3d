@@ -6,7 +6,7 @@
 #    By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/15 15:48:03 by kdouveno          #+#    #+#              #
-#    Updated: 2018/05/30 15:46:23 by gperez           ###   ########.fr        #
+#    Updated: 2018/05/31 11:43:23 by gperez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_LIST =	main.c\
 			walls.c\
 			peer.c\
 			algo.c \
+			scan.c \
 
 OBJS = $(SRC_LIST:.c=.o)
 SRCS = $(addprefix $(SRC_DIR),$(SRC_LIST))

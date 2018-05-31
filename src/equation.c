@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.c                                             :+:      :+:    :+:   */
+/*   equation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/30 15:37:08 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/31 17:22:32 by gperez           ###   ########.fr       */
+/*   Created: 2018/05/30 15:03:33 by gperez            #+#    #+#             */
+/*   Updated: 2018/05/31 15:33:49 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void    algo(t_env *e)
+t_vec		ft_norm_vec(t_vec v, int n)
 {
-	t_vec	bal;
-	int		i_x;
-	int		i_y;
+	double a;
 
-	i_x = 0;
-	bal = e->dir;
-	while (i_x < DIMX)
-	{
-		//ballayage par rapport centre ecran puis affichage du mur
-		i_y = 0;
-		while (i_y < DIMY)
-			i_y = scan(e, apply((t_vec){0,0,i_x} bal)));
-		i_x++;
-	}
+	a = sqrt(v.x * v.x + v.y * v.y) / n;
+	return ((t_vec){v.x / a, v.y / a});
+}
+
+t_pt	apply(t_vec v, t_pt p)
+{
+	return ((t_pt){p.x + v.x, p.y + v.y, p.z + v.z});
+}
+
+t_vec	vecpro(t_vec v, double a)
+{
+	return ((t_vec){v.x * a, v.y * a, v.z * a});
 }

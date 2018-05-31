@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.c                                             :+:      :+:    :+:   */
+/*   scan.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/30 15:37:08 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/31 17:22:32 by gperez           ###   ########.fr       */
+/*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
+/*   Updated: 2018/05/31 17:32:25 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void    algo(t_env *e)
+static int		check_wall(t_env *e, t_pt *new, t_pt *p, int *i)
 {
-	t_vec	bal;
-	int		i_x;
-	int		i_y;
-
-	i_x = 0;
-	bal = e->dir;
-	while (i_x < DIMX)
+	while (new / PRES == p / PRES)
 	{
-		//ballayage par rapport centre ecran puis affichage du mur
-		i_y = 0;
-		while (i_y < DIMY)
-			i_y = scan(e, apply((t_vec){0,0,i_x} bal)));
-		i_x++;
+		new = p;
+		p = apply(v, p);
+		i++;
+	}
+
+}
+
+int		scan(t_env *e, t_vec v)
+{
+	t_pt	p;
+	t_pt	new;
+	int		i;
+	int		d;
+
+	v = ft_norm_vec(v, PRES);
+	d = v.y / v.x;
+	p = e->cam.p;
+	new = p;
+	while (check_wall(e, &new, &*, &i, &d) != 1)
+	{
+
 	}
 }
