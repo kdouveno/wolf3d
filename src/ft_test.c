@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 16:03:15 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/30 14:31:47 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/01 14:04:28 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ int		ft_test_next(t_env *e, int n)
 		if (n == 1)
 		{
 
-			ft_putchar('\n');
 			ft_putnbr(save->m.x);
 			ft_putchar(' ');
 			ft_putnbr(save->m.y);
 			ft_putchar(' ');
 			ft_putnbr(save->m.z);
-			ft_putchar('\n');
+			ft_putstr("          ");
 			/*
 			ft_putstr("dir: ");
 			ft_putnbr(save->obj.dir);

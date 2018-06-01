@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:56 by gperez            #+#    #+#             */
-/*   Updated: 2018/05/26 17:55:10 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/01 14:02:52 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void		parse(t_env *e, char *path)
 		if (check_line(line))
 			error(e, FILE_ERROR);
 		tab = ft_strsplit(line, '|');
-		ft_puttab_s(tab, 1);
 		pos.tabi = 0;
 		parse_line(e, &pos, tab[0], (tab[0] != NULL && tab[1] != NULL
 			? ft_strsplit(tab[1], ' ') : NULL));

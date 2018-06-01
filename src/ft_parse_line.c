@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/31 17:20:04 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/01 16:48:03 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 	pos->cur->obj.cor = 1;
 	if (pos->cur->obj.type == 's')
 	{
-		e->cam.p = (t_pt){pos->cur->m.x / 2, pos->cur->m.y / 2, pos->cur->m.z};
-		e->cam->cur = pos->cur;
+		e->cam.p = (t_pt){(pos->cur->m.x + 0.5), (pos->cur->m.y + 0.5), pos->cur->m.z};
+		e->cam.cur = pos->cur;
 	}
 }
 
@@ -51,8 +51,8 @@ void	manage_ll(t_env *e, t_pos *pos)
 		b = 1;
 		pos->l_l = e->labstart;
 	}
-	while (b && (pos->l_l->m.y < (pos->y - 1) * PRES
-	|| pos->l_l->m.x < pos->x * PRES))
+	while (b && (pos->l_l->m.y < (pos->y - 1)
+	|| pos->l_l->m.x < pos->x))
 		pos->l_l = pos->l_l->next;
 }
 
@@ -61,9 +61,9 @@ void	add_base(t_env *e, t_pos *pos, char **tab, char c)
 	if (!(pos->cur = (t_base*)malloc(sizeof(t_base)))
 	|| !(pos->cur->ceil = (t_base*)malloc(sizeof(t_base))))
 		error(e, MALLOC_ERROR);
-	pos->cur->m = (t_pt){pos->x * PRES, pos->y * PRES, 0};
+	pos->cur->m = (t_pt){pos->x, pos->y, 0};
 	pos->cur->n = (t_vec){0, 0, 1};
-	pos->cur->ceil->m = (t_pt){pos->x * PRES, pos->y * PRES, PRES};
+	pos->cur->ceil->m = (t_pt){pos->x, pos->y, 1};
 	pos->cur->ceil->n = pos->cur->n;
 	set_meta(e, pos, tab, c);
 	check_peer(e, pos);
@@ -84,13 +84,13 @@ void	finish(t_env *e, t_pos *pos)
 	pos->l_l = pos->l_l->next;
 	w = add_wall(e, pos);
 	w->n = (t_vec){1, 0, 0};
-	w->m = (t_vec){pos->l->m.x + PRES, pos->l->m.y + PRES, pos->l->m.z};
+	w->m = (t_vec){pos->l->m.x + 1, pos->l->m.y + 1, pos->l->m.z};
 	pos->l->xu = w;
 	while (pos->l_l)
 	{
 		w = add_wall(e, pos);
 		w->n = (t_vec){0, 1, 0};
-		w->m = (t_vec){pos->l_l->m.x + PRES, pos->l_l->m.y + PRES,
+		w->m = (t_vec){pos->l_l->m.x + 1, pos->l_l->m.y + 1,
 			pos->l_l->m.z};
 		pos->l_l->yd = w;
 		pos->l_l = pos->l_l->next;

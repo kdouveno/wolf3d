@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/31 17:19:57 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/01 16:59:40 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "mlx.h"
 # define DIMX 1600
 # define DIMY 900
-# define PRES 10000
 # define NBR_PARAM_MAX 2
 # define FOV 85
 # include <fcntl.h>
@@ -33,9 +32,9 @@
 
 typedef struct			s_3d
 {
-	int					x;
-	int					y;
-	int					z;
+	double					x;
+	double					y;
+	double					z;
 }						t_3d;
 
 typedef t_3d			t_vec;
@@ -50,18 +49,9 @@ typedef t_3d			t_pt;
 **	'f': fake Wall3
 */
 
-typedef struct			s_cam
-{
-	t_3d				p;
-	double				fov;
-	t_vec				dir;
-	t_vec				v_u;
-	t_base				*cur;
-}						t_cam;
-
 typedef enum			e_metadir
 {
-	CENTER, UP, RIGHT, DOWN, LEFT
+	CENTER, UP, RIGHT, DOWN, LEFT, UP_LEFT, UP_RIGHT, DOWN_RIGHT, DOWN_LEFT
 }						t_metadir;
 
 typedef struct			s_obj
@@ -85,6 +75,15 @@ typedef struct			s_base
 	struct s_base		*ceil;
 	struct s_base		*next;
 }						t_base;
+
+typedef struct			s_cam
+{
+	t_3d				p;
+	double				fov;
+	t_vec				dir;
+	t_vec				v_u;
+	t_base				*cur;
+}						t_cam;
 
 typedef struct			s_peer
 {
@@ -172,7 +171,9 @@ void					check_peer(t_env *e, t_pos *pos);
 void					algo(t_env *e);
 int						scan(t_env *e, t_pt p);
 
-t_vec					ft_norm_vec(t_vec v, int n);
-
+t_vec					ft_norm_vec(t_vec v);
+t_pt					apply(t_vec v, t_pt p);
+t_vec					vecpro(t_vec v, double a);
+double					rad(double deg);
 
 #endif
