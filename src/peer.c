@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 14:55:47 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/04 15:33:42 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/04 18:26:24 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	add_peer(t_env *e, t_pos *pos)
 
 	if (!(out = (t_peer*)malloc(sizeof(t_peer))))
 		error(e, MALLOC_ERROR);
+	printf("pos->... %d\n", pos->cur->obj.type == 'p');
+
 	if (pos->cur->obj.type == 'p')
 		(*get_base(pos->cur)) = NULL;
 	*out = (t_peer){pos->cur, pos->cur->obj.meta[0], NULL};
@@ -43,9 +45,10 @@ void	add_peer(t_env *e, t_pos *pos)
 
 void	pe_portals(t_pos *pos, t_peer *pb)
 {
-	free(*get_base(pos->cur));
+	printf("Entree Principale\n");
 	if (pb->base->obj.meta[1] & 4)
 	{
+		printf("\tpb est une Entree secondaire\n");
 		(*get_base(pos->cur)) = pb->base;
 		pb->base = pos->cur;
 	}
@@ -64,24 +67,26 @@ void	mega_link_portals(t_pos *pos, t_peer *pb)
 	t_base	*tmp;
 	int		id;
 
-	if (~pb->base->obj.meta[1] & 6)
+	if (!(pb->base->obj.meta[1] & 6))
 		return ;
 	start = pb->base;
 	id = pb->id;
-	while (start->obj.type == 'p' && start->obj.meta[0] == id)
+	while (start)
 	{
 		tmp = *get_base(start);
+		printf("next: %p\n", tmp);
 		if (start->obj.meta[1] & 6)
 		{
+			printf("La meta: %d\n", start->obj.meta[1]);
 			(*get_base(start)) = pos->cur;
 			start->obj.cor = 0;
 			if (start->obj.meta[1] & 2)
 			{
 				(*get_base(pos->cur)) = start;
 				pos->cur->obj.cor = 0;
-				start->obj.cor = 0;
 			}
 		}
+		start = tmp;
 	}
 }
 
@@ -89,7 +94,7 @@ void	check_portals(t_pos *pos, t_peer *pb)
 {
 	if (pos->cur->obj.meta[1] & 4)
 	{
-		free((*get_base(pos->cur)));
+		printf("Entree Secondaire\n");
 		if (pb->base->obj.meta[1] & 6)
 		{
 			(*get_base(pos->cur)) = *get_base(pb->base);
@@ -103,7 +108,7 @@ void	check_portals(t_pos *pos, t_peer *pb)
 	}
 	else if (pos->cur->obj.meta[1] & 2)
 		pe_portals(pos, pb);
-	else if (~pos->cur->obj.meta[1] & 6)
+	else if (!(pos->cur->obj.meta[1] & 6))
 		mega_link_portals(pos, pb);
 }
 
