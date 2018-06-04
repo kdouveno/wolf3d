@@ -6,53 +6,85 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/01 17:32:36 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/04 15:38:15 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static int		check_u(t_base *b_wall, int dir)
+static int		check_u(t_base *b_wall)
 {
-	b_wall = b_wall->yu != NULL ? b_wall->yu : b_wall;
-	return (b_wall->yu == NULL);
+	b_wall = b_wall->yu;
+	return (b_wall->next == NULL);
 }
 
-static int		check_r(t_base *b_wall, int dir)
+static int		check_r(t_base *b_wall)
 {
-	b_wall = b_wall->xu != NULL ? b_wall->xu : b_wall;
-	return (b_wall->xu == NULL);
+	b_wall = b_wall->xu;
+	return (b_wall->next == NULL);
 }
 
-static int		check_d(t_base *b_wall, int dir)
+static int		check_d(t_base *b_wall)
 {
-	b_wall = b_wall->yd != NULL ? b_wall->yd : b_wall;
-	return (b_wall->yd == NULL);
+	b_wall = b_wall->yd;
+	return (b_wall->next == NULL);
 }
 
-static int		check_l(t_base *b_wall, int dir)
+static int		check_l(t_base *b_wall)
 {
-	b_wall = b_wall->xd != NULL ? b_wall->xd : b_wall;
-	return (b_wall->xd == NULL);
+	b_wall = b_wall->xd;
+	return (b_wall->next == NULL);
 }
 
-static int		check_dia(t_base *b_wall, int dir)
+static int		check_dia(t_base *b_wall, int dir, t_vec v, t_pt old)
 {
+	double t;
+	double x;
+	double y;
+
+
+	y = (dir == UP_LEFT || dir == UP_RIGHT) ? b_wall->m.y : b_wall->m.y + 1;
+	t = (old.y - y) / v.y;
+	x = v.x * t + old.x;
+
+	if ((int)x == (int)old.x)
+	{
+		if (dir == UP_LEFT)
+		{
+			check_u(b_wall);
+			check_l(b_wall);
+		}
+		if (dir == DOWN_LEFT)
+		{
+			check_l(b_wall);
+			check_u(b_wall);
+		}
+	}
+	else if ((int)x == (int)old.x)
+	{
+		check_r(b_wall);
+	}
+	else if (dir == DOWN)
+		check_d(b_wall);
+	else if (dir == LEFT)
+		check_l(b_wall);
+
+	return (0);
 }
 
 
-static int		check_wall(t_base *b_wall, int dir)
+static int		check_wall(t_base *b_wall, int dir, t_vec v, t_pt old)
 {
-	if (dir == 1)
-		check_u(b_wall, dir);
-	else if (dir == 2)
-		check_r(b_wall, dir);
-	else if (dir == 3)
-		check_d(b_wall, dir);
-	else if (dir == 4)
-		check_l(b_wall, dir);
+	if (dir == UP)
+		return (check_u(b_wall));
+	else if (dir == RIGHT)
+		return (check_r(b_wall));
+	else if (dir == DOWN)
+		return (check_d(b_wall));
+	else if (dir == LEFT)
+		return (check_l(b_wall));
 	else
-		check_dia(b_wall, dir);
+		return (check_dia(b_wall, dir, v, old));
 }
 
 static int		check_base(t_vec v, t_pt *old, t_pt *p)
@@ -87,10 +119,13 @@ int		scan(t_env *e, t_vec v)
 	t_pt	old;
 	t_base	*b_wall;
 
-	b_wall = e->cam->cur;
+	b_wall = e->cam.cur;
 	v = ft_norm_vec(v);
 	p = e->cam.p;
 	old = (t_pt){p.x, p.y, p.z};
-	printf("%d\n", check_base(v, &old, &p));
+	while(check_wall(b_wall, check_base(v, &old, &p), v, old) != 1)
+	{
+		ft_putendl("on avance");
+	}
 	return (0);
 }
