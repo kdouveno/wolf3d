@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/04 18:24:30 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/09 17:56:08 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		check_l(t_base **b_wall)
 	return (t->next == NULL);
 }
 
-static int		check_dia(t_base **b_wall, int dir, t_vec v, t_pt *old)
+static t_base	*check_dia(t_base **b_wall, int dir, t_vec v, t_pt *old)
 {
 	double t;
 	double x;
@@ -72,34 +72,34 @@ static int		check_dia(t_base **b_wall, int dir, t_vec v, t_pt *old)
 		if (dir == UP_LEFT)
 		{
 			if (check_u(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_l(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 		else if (dir == UP_RIGHT)
 		{
 			if (check_u(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_r(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 		else if (dir == DOWN_RIGHT)
 		{
 			if (check_d(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_r(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 		else
 		{
 			if (check_d(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_l(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 
 	}
@@ -108,18 +108,18 @@ static int		check_dia(t_base **b_wall, int dir, t_vec v, t_pt *old)
 		if (dir == UP_RIGHT)
 		{
 			if (check_r(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_u(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 		else
 		{
 			if (check_r(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_d(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 	}
 	else if ((int)x < (int)old->x)
@@ -127,56 +127,52 @@ static int		check_dia(t_base **b_wall, int dir, t_vec v, t_pt *old)
 		if (dir == UP_LEFT)
 		{
 			if (check_l(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_u(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 		else
 		{
 			if (check_l(b_wall) == 1)
-				return(1);
+				return(*b_wall);
 			if (check_d(b_wall) == 1)
-				return(1);
-			return (0);
+				return(*b_wall);
+			return (NULL);
 		}
 	}
-	return (0);
+	return (NULL);
 }
 
 
-static int		check_wall(t_base **b_wall, int dir, t_vec v, t_pt *old)
+static t_base	*check_wall(t_base **b_wall, int dir, t_vec v, t_pt *old)
 {
 	if (dir == UP)
 	{
-		ft_putnbr(dir);
-		ft_putchar('\n');
-		return (check_u(b_wall));
+		if (check_u(b_wall) == 1)
+			return(*b_wall);
+		return (NULL);
 	}
 	else if (dir == RIGHT)
 	{
-		ft_putnbr(dir);
-		ft_putchar('\n');
-		return (check_r(b_wall));
+		if (check_r(b_wall) == 1)
+			return(*b_wall);
+		return (NULL);
 	}
 	else if (dir == DOWN)
 	{
-		ft_putnbr(dir);
-		ft_putchar('\n');
-		return (check_d(b_wall));
+		if (check_d(b_wall) == 1)
+			return(*b_wall);
+		return (NULL);
 	}
 	else if (dir == LEFT)
 	{
-		ft_putnbr(dir);
-		ft_putchar('\n');
-		return (check_l(b_wall));
+		if (check_l(b_wall) == 1)
+			return(*b_wall);
+		return (NULL);
 	}
 	else
-	{
-		ft_putnbr(dir);
-		ft_putchar('\n');
 		return (check_dia(b_wall, dir, v, old));
-	}
 }
 
 static int		check_base(t_vec v, t_pt *old, t_pt *p)
@@ -214,14 +210,16 @@ int		scan(t_env *e, t_vec v)
 	t_pt	p;
 	t_pt	old;
 	t_base	*b_wall;
-	int		test;
+	t_base	*save;
 
 	b_wall = e->cam.cur;
 	v = ft_norm_vec(v);
 	p = e->cam.p;
 	old = (t_pt){p.x, p.y, p.z};
 	printf("v.x = %f\n v.y = %f\n", v.x, v.y);
-	while ((test = check_wall(&b_wall, check_base(v, &old, &p), v, &old)) != 1)
-		ft_putnbr(test);
+	while ((save = check_wall(&b_wall, check_base(v, &old, &p), v, &old)) == NULL)
+	{
+	}
+	printf("x : %f\n y : %f\n",save->m.x, save->m.y);
 	return (0);
 }
