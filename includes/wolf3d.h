@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/10 16:08:22 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/10 16:11:27 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 void					algo(t_env *e);
-int						scan(t_env *e, t_pt p);
+int						scan(t_env *e, t_pt p, int i_x);
 
 t_vec					ft_norm_vec(t_vec v);
 t_pt					apply(t_vec v, t_pt p);
