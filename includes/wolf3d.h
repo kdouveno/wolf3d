@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/01 16:59:40 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/10 16:08:22 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int						check_meta(char *line, int i);
 void					add_base(t_env *e, t_pos *pos, char **tab, char c);
 int						ft_test(t_env *e);
 void					error(t_env *e, char *msg);
-t_base					*add_wall(t_env *e, t_pos *pos);
+t_base					*add_wall(t_env *e, t_base *base);
 void					wall_left(t_env *e, t_pos *pos);
 void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);

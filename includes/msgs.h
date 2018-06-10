@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:02:54 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/05/21 17:03:26 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/10 16:09:06 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@
 # define READ_ERROR "Fail to read the file"
 # define CLOSE_ERROR "Fail to close the file"
 # define MALLOC_ERROR "Dynamic allocation failed, aborting..."
+# define PORTAL_ERROR "Portal Placement Failur: Portals must be placed on walls"
 #endif
