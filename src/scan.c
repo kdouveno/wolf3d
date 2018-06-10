@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/10 16:05:45 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/10 16:25:33 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,20 +198,34 @@ static int		check_base(t_vec v, t_pt *old, t_pt *p)
 		return((int)p->y < (int)old->y ? UP : DOWN);
 }
 
-void    display_wall(t_env *e, t_vec v, double t, int i_x)
+void    display(t_env *e, t_vec v, double t, int i_x)
 {
 	double	h;
 	int		s_w;
 	int		e_w;
+	int		i;
 
+	i = 0;
 	(void)v;
 	(void)i_x;
 	h = (atan(0.5 / t) * 2) / (e->cam.fov / DIMX);
 	s_w = h > DIMY ? 0 : DIMY / 2 - h / 2;
 	e_w = h > DIMY ? DIMY - 1 : DIMY / 2 + h / 2;
-	while (s_w < e_w)
+	while (i < s_w)
 	{
-
+		//afficher pixel toit;
+		//e->mlx->img[]
+		i++;
+	}
+	while (i < e_w)
+	{
+		//afficher pixel mur;
+		i++;
+	}
+	while (i < DIMY)
+	{
+		//afficher pixel sol;
+		i++;
 	}
 	printf("%f\n", h);
 }
@@ -238,6 +252,6 @@ int		scan(t_env *e, t_vec v, int i_x)
 	/ (save->n.x * v.x + save->n.y * v.y);
 
 	printf("%f\n", t);
-	display_wall(e, t, v, i_x);
+	display(e, v, t, i_x);
 	return (0);
 }
