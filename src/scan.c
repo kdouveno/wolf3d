@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/09 18:23:10 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/10 16:05:45 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static t_base	*check_dia4(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_u(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
 	else
 	{
@@ -80,8 +79,8 @@ static t_base	*check_dia4(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_d(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
+	return (NULL);
 }
 
 static t_base	*check_dia3(t_base **b_wall, int dir)
@@ -92,7 +91,6 @@ static t_base	*check_dia3(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_u(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
 	else
 	{
@@ -100,8 +98,8 @@ static t_base	*check_dia3(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_d(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
+	return (NULL);
 }
 
 static t_base	*check_dia2(t_base **b_wall, int dir)
@@ -112,7 +110,6 @@ static t_base	*check_dia2(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_l(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
 	else if (dir == UP_RIGHT)
 	{
@@ -120,7 +117,6 @@ static t_base	*check_dia2(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_r(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
 	else if (dir == DOWN_RIGHT)
 	{
@@ -128,7 +124,6 @@ static t_base	*check_dia2(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_r(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
 	else
 	{
@@ -136,8 +131,8 @@ static t_base	*check_dia2(t_base **b_wall, int dir)
 			return(*b_wall);
 		if (check_l(b_wall) != NULL)
 			return(*b_wall);
-		return (NULL);
 	}
+	return (NULL);
 }
 static t_base	*check_dia(t_base **b_wall, int dir, t_vec v, t_pt *old)
 {
@@ -151,8 +146,6 @@ static t_base	*check_dia(t_base **b_wall, int dir, t_vec v, t_pt *old)
 	t = (y - old->y) / v.y;
 	x = v.x * t + old->x;
 
-	printf("x : %f \n",x);
-	printf("y : %f \n",y);
 	if ((int)x == (int)old->x)
 		return (check_dia2(b_wall, dir));
 	else if ((int)x > (int)old->x)
@@ -205,21 +198,46 @@ static int		check_base(t_vec v, t_pt *old, t_pt *p)
 		return((int)p->y < (int)old->y ? UP : DOWN);
 }
 
-int		scan(t_env *e, t_vec v)
+void    display_wall(t_env *e, t_vec v, double t, int i_x)
+{
+	double	h;
+	int		s_w;
+	int		e_w;
+
+	(void)v;
+	(void)i_x;
+	h = (atan(0.5 / t) * 2) / (e->cam.fov / DIMX);
+	s_w = h > DIMY ? 0 : DIMY / 2 - h / 2;
+	e_w = h > DIMY ? DIMY - 1 : DIMY / 2 + h / 2;
+	while (s_w < e_w)
+	{
+
+	}
+	printf("%f\n", h);
+}
+
+int		scan(t_env *e, t_vec v, int i_x)
 {
 	t_pt	p;
 	t_pt	old;
 	t_base	*b_wall;
 	t_base	*save;
+	double	t;
 
 	b_wall = e->cam.cur;
 	v = ft_norm_vec(v);
 	p = e->cam.p;
 	old = (t_pt){p.x, p.y, p.z};
-	printf("v.x = %f\n v.y = %f\n", v.x, v.y);
+	printf("p.x = %f\np.y = %f\n", p.x, p.y);
+	printf("v.x = %f\nv.y = %f\n", v.x, v.y);
 	while ((save = check_wall(&b_wall, check_base(v, &old, &p), v, &old)) == NULL)
 	{
 	}
-	printf("x : %f\n y : %f\n",save->m.x, save->m.y);
+	printf("plan x : %f y : %f z : %f\nvecteur du plan x: %f y : %f z : %f\n",save->m.x, save->m.y, save->m.z, save->n.x, save->n.y, save->n.z);
+	t = -(save->n.x * e->cam.p.x + save->n.y * e->cam.p.y - (save->m.x * save->n.x + save->m.y * save->n.y))
+	/ (save->n.x * v.x + save->n.y * v.y);
+
+	printf("%f\n", t);
+	display_wall(e, t, v, i_x);
 	return (0);
 }
