@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/01 16:48:03 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/09 18:22:41 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 	pos->cur->obj.cor = 1;
 	if (pos->cur->obj.type == 's')
 	{
-		e->cam.p = (t_pt){(pos->cur->m.x + 0.5), (pos->cur->m.y + 0.5), pos->cur->m.z};
+		e->cam.p = (t_pt){(pos->cur->m.x + 0.5), (pos->cur->m.y + 0.5),
+			pos->cur->m.z};
 		e->cam.cur = pos->cur;
 	}
 }
@@ -45,15 +46,23 @@ void	set_meta(t_env *e, t_pos *pos, char **tab, char c)
 void	manage_ll(t_env *e, t_pos *pos)
 {
 	static int	b;
+	int			a;
 
 	if (pos->y > 0 && !b)
 	{
 		b = 1;
 		pos->l_l = e->labstart;
 	}
+	a = 0;
 	while (b && (pos->l_l->m.y < (pos->y - 1)
 	|| pos->l_l->m.x < pos->x))
+	{
+		if (a)
+			pos->l_l->yd = add_wall(e, pos->l_l);
+		check_peer(e, pos);
 		pos->l_l = pos->l_l->next;
+		a = 1;
+	}
 }
 
 void	add_base(t_env *e, t_pos *pos, char **tab, char c)
@@ -66,7 +75,6 @@ void	add_base(t_env *e, t_pos *pos, char **tab, char c)
 	pos->cur->ceil->m = (t_pt){pos->x, pos->y, 1};
 	pos->cur->ceil->n = pos->cur->n;
 	set_meta(e, pos, tab, c);
-	check_peer(e, pos);
 	if (!e->labstart)
 		e->labstart = pos->cur;
 	else
@@ -74,6 +82,7 @@ void	add_base(t_env *e, t_pos *pos, char **tab, char c)
 	manage_ll(e, pos);
 	wall_up(e, pos);
 	wall_left(e, pos);
+
 	pos->l = pos->cur;
 }
 
@@ -82,17 +91,18 @@ void	finish(t_env *e, t_pos *pos)
 	t_base *w;
 
 	pos->l_l = pos->l_l->next;
-	w = add_wall(e, pos);
+	w = add_wall(e, pos->l_l);
 	w->n = (t_vec){1, 0, 0};
 	w->m = (t_vec){pos->l->m.x + 1, pos->l->m.y + 1, pos->l->m.z};
 	pos->l->xu = w;
 	while (pos->l_l)
 	{
-		w = add_wall(e, pos);
+		w = add_wall(e, pos->l_l);
 		w->n = (t_vec){0, 1, 0};
 		w->m = (t_vec){pos->l_l->m.x + 1, pos->l_l->m.y + 1,
 			pos->l_l->m.z};
 		pos->l_l->yd = w;
+		check_peer(e, pos);
 		pos->l_l = pos->l_l->next;
 	}
 }
