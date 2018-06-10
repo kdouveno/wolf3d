@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 16:03:15 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/01 14:04:28 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/10 18:00:39 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int    ft_test_rec(t_base *e, int nb_pos)
 		ft_putchar('\n');
 	ft_putchar(e->obj.type);
 	nb_pos = e->m.y;
-	if (e->xd != NULL && e->xd->n.z == 0)
+	if (e->xd != NULL && e->xd->obj.type == 'w')
 		ft_putnbr(1);
-	if (e->yu != NULL && e->yu->n.z == 0)
+	if (e->yu != NULL && e->yu->obj.type == 'w')
 		ft_putnbr(2);
-	if (e->xu != NULL && e->xu->n.z == 0)
+	if (e->xu != NULL && e->xu->obj.type == 'w')
 		ft_putnbr(3);
-	if (e->yd != NULL && e->yd->n.z == 0)
+	if (e->yd != NULL && e->yd->obj.type == 'w')
 		ft_putnbr(4);
 	if (e->next != NULL)
 		ft_test_rec(e->next, nb_pos);
@@ -81,7 +81,7 @@ int		ft_test(t_env *e)
 	t_base *save;
 
 	save = e->labstart;
-	//ft_test_rec(save, 1);
+	ft_test_rec(save, 1);
  	ft_test_next(e, 1);
 	return (0);
 }

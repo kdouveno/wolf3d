@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/10 16:25:33 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/10 18:12:53 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_base	*check_u(t_base **b_wall)
 	t = *b_wall;
 	t = t->yu;
 	*b_wall = t;
-	if (t->next == NULL)
+	if (t->obj.type == 'w')
 		return (t);
 	else
 		return (NULL);
@@ -32,7 +32,7 @@ static t_base	*check_r(t_base **b_wall)
 	t = *b_wall;
 	t = t->xu;
 	*b_wall = t;
-	if (t->next == NULL)
+	if (t->obj.type == 'w')
 		return (t);
 	else
 		return (NULL);
@@ -45,7 +45,7 @@ static t_base	*check_d(t_base **b_wall)
 	t = *b_wall;
 	t = t->yd;
 	*b_wall = t;
-	if (t->next == NULL)
+	if (t->obj.type == 'w')
 		return (t);
 	else
 		return (NULL);
@@ -58,7 +58,7 @@ static t_base	*check_l(t_base **b_wall)
 	t = *b_wall;
 	t = t->xd;
 	*b_wall = t;
-	if (t->next == NULL)
+	if (t->obj.type == 'w')
 		return (t);
 	else
 		return (NULL);
@@ -207,27 +207,31 @@ void    display(t_env *e, t_vec v, double t, int i_x)
 
 	i = 0;
 	(void)v;
-	(void)i_x;
-	h = (atan(0.5 / t) * 2) / (e->cam.fov / DIMX);
-	s_w = h > DIMY ? 0 : DIMY / 2 - h / 2;
-	e_w = h > DIMY ? DIMY - 1 : DIMY / 2 + h / 2;
+	h = e->cam.dist / t;
+	printf("dist : %f\n", e->cam.dist);
+
+	s_w = h > DIMY ? 0 : (DIMY - h) / 2;
+	e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
+	printf("s_w : %d, e_w : %d\n", s_w, e_w);
 	while (i < s_w)
 	{
 		//afficher pixel toit;
-		//e->mlx->img[]
+		e->mlx.img[i * DIMX + i_x] = 0xFF00FF;
 		i++;
 	}
 	while (i < e_w)
 	{
 		//afficher pixel mur;
+		e->mlx.img[i * DIMX + i_x] = 0xFFFFFF;
 		i++;
 	}
 	while (i < DIMY)
 	{
 		//afficher pixel sol;
+		e->mlx.img[i * DIMX + i_x] = 0xFFFF00;
 		i++;
 	}
-	printf("%f\n", h);
+	printf("h : %f\n", h);
 }
 
 int		scan(t_env *e, t_vec v, int i_x)
@@ -248,10 +252,11 @@ int		scan(t_env *e, t_vec v, int i_x)
 	{
 	}
 	printf("plan x : %f y : %f z : %f\nvecteur du plan x: %f y : %f z : %f\n",save->m.x, save->m.y, save->m.z, save->n.x, save->n.y, save->n.z);
+	printf("test: %f * %f + %f * %f\n",save->n.x, v.x, save->n.y, v.y);
 	t = -(save->n.x * e->cam.p.x + save->n.y * e->cam.p.y - (save->m.x * save->n.x + save->m.y * save->n.y))
 	/ (save->n.x * v.x + save->n.y * v.y);
 
-	printf("%f\n", t);
+	printf("t : %f\n", t);
 	display(e, v, t, i_x);
 	return (0);
 }

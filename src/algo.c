@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:37:08 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/10 16:26:06 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/10 17:28:36 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    algo(t_env *e)
 	while (i_x < DIMX)
 	{
 		//ballayage par rapport centre ecran puis affichage du mur
-		scan(e, apply((t_vec){0,0,i_x}, bal), i_x);
+		scan(e, (bal = apply(e->cam.v_u, bal)), i_x);
 		i_x++;
 	}
 	mlx_put_image_to_window(e->mlx.ptr, e->mlx.win, e->mlx.imgptr, 0, 0);

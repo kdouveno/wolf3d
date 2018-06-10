@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/10 16:11:27 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/10 17:50:13 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define DIMX 1600
 # define DIMY 900
 # define NBR_PARAM_MAX 2
-# define FOV 85
+# define FOV 100
 # include <fcntl.h>
 # include <math.h>
 
@@ -80,6 +80,7 @@ typedef struct			s_cam
 {
 	t_3d				p;
 	double				fov;
+	double				dist;
 	t_vec				dir;
 	t_vec				v_u;
 	t_base				*cur;
