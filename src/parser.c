@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:56 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/01 14:02:52 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/11 15:26:21 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,31 @@ int			check_line(char *line)
 			return (1);
 		i++;
 	}
+	if (i == 0)
+		return (1);
 	return (line[i] == '|' ? check_meta(line, i + 1) : 0);
 }
 
-void	parse_line(t_env *e, t_pos *pos, char *lab, char **tab)
+void		parse_line(t_env *e, t_pos *pos, char *lab, char **tab)
 {
 	int i;
 
-	i = 0;
-	pos->x = 0;
-	while (lab[i])
+	if (lab)
 	{
-		if (lab[i] != ' ')
+		i = 0;
+		pos->x = 0;
+		while (lab[i])
 		{
-			if (lab[i] != '_')
-				add_base(e, pos, tab, lab[i]);
-			pos->x++;
+			if (lab[i] != ' ')
+			{
+				if (lab[i] != '_')
+					add_base(e, pos, tab, lab[i]);
+				pos->x++;
+			}
+			i++;
 		}
-		i++;
+		pos->y++;
 	}
-	pos->y++;
 	ft_free_tab(tab);
 }
 
@@ -70,7 +75,7 @@ void		parse(t_env *e, char *path)
 		error(e, OPEN_ERROR);
 	while ((check = get_next_line(fd, &line)) >= 1)
 	{
-		if (check_line(line))
+		if (*line && check_line(line))
 			error(e, FILE_ERROR);
 		tab = ft_strsplit(line, '|');
 		pos.tabi = 0;
@@ -79,6 +84,7 @@ void		parse(t_env *e, char *path)
 		free(line);
 	}
 	finish(e, &pos);
+	printf("content\n");
 	if (check == -1)
 		error(e, READ_ERROR);
 	if (close(fd) == -1)
