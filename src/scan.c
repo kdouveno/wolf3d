@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/12 12:33:52 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/12 14:02:36 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,11 +208,11 @@ void    display(t_env *e, t_vec v, double t, int i_x)
 	i = 0;
 	(void)v;
 	h = e->cam.dist / t;
-//	printf("dist : %f\n", e->cam.dist);
+	printf("dist : %f\n", e->cam.dist);
 
 	s_w = h > DIMY ? 0 : (DIMY - h) / 2;
 	e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
-	//printf("s_w : %d, e_w : %d\n", s_w, e_w);
+	printf("s_w : %d, e_w : %d\n", s_w, e_w);
 	while (i < s_w)
 	{
 		//afficher pixel toit;
@@ -232,8 +232,8 @@ void    display(t_env *e, t_vec v, double t, int i_x)
 		i++;
 	}
 	e->cam.move = ft_norm_vec((t_vec){e->cam.dir.x, e->cam.dir.y + DIMX / 2,
-		0});
-	//printf("h : %f\n", h);
+		e->cam.dir.z - DIMX / 2});
+	printf("h : %f\n", h);
 }
 
 int		scan(t_env *e, t_vec v, int i_x)
