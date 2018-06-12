@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/10 17:50:13 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/12 11:59:59 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
+# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
 # define DIMX 1600
 # define DIMY 900
 # define NBR_PARAM_MAX 2
@@ -83,6 +84,7 @@ typedef struct			s_cam
 	double				dist;
 	t_vec				dir;
 	t_vec				v_u;
+	t_vec				move;
 	t_base				*cur;
 }						t_cam;
 
@@ -171,6 +173,7 @@ void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 void					algo(t_env *e);
 int						scan(t_env *e, t_pt p, int i_x);
+int 					my_key(int key, t_env *e);
 
 t_vec					ft_norm_vec(t_vec v);
 t_pt					apply(t_vec v, t_pt p);

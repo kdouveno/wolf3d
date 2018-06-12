@@ -6,7 +6,7 @@
 #    By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/15 15:48:03 by kdouveno          #+#    #+#              #
-#    Updated: 2018/06/01 13:53:53 by gperez           ###   ########.fr        #
+#    Updated: 2018/06/12 10:34:13 by gperez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_LIST =	main.c\
 			algo.c \
 			scan.c \
 			equation.c \
+			keys.c \
 
 OBJS = $(SRC_LIST:.c=.o)
 SRCS = $(addprefix $(SRC_DIR),$(SRC_LIST))

@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:45 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/10 18:22:55 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/12 11:55:19 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		init(t_env *e)
 	e->cam.dir = (t_vec){e->cam.dist, -DIMX / 2, DIMY / 2};
 	e->cam.v_u = (t_vec){0, 1, 0};
 	algo(e);
+	mlx_hook(e->mlx.win, KeyPress, KeyPressMask, my_key, e);
 	mlx_loop(e->mlx.ptr);
 	return (0);
 }
