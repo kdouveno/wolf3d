@@ -6,7 +6,11 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:45 by kdouveno          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/06/12 11:55:19 by gperez           ###   ########.fr       */
+=======
+/*   Updated: 2018/06/11 14:32:04 by kdouveno         ###   ########.fr       */
+>>>>>>> parser
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +36,16 @@ int		init(t_env *e)
 		error(e, MLX_ERROR);
 
 	e->cam.fov = FOV;
+<<<<<<< HEAD
 	e->cam.dist = (double) DIMX / tan(rad(e->cam.fov) / 2) * 2;
 	e->cam.dir = (t_vec){e->cam.dist, -DIMX / 2, DIMY / 2};
 	e->cam.v_u = (t_vec){0, 1, 0};
+=======
+	e->cam.dir = (t_vec){DIMX / tan(rad(e->cam.fov) / 2) * 2,
+		DIMX / 2, DIMY / 2};
+	e->cam.v_u = (t_vec){1, 1, 0};
+	e->cam.p = (t_pt){0.9, 0.9, e->cam.p.z};
+>>>>>>> parser
 	algo(e);
 	mlx_hook(e->mlx.win, KeyPress, KeyPressMask, my_key, e);
 	mlx_loop(e->mlx.ptr);
@@ -49,7 +60,7 @@ int		main(int argc, char **argv)
 		return (0);
 	env.labstart = NULL;
 	parse(&env, argv[1]);
-	if (ft_test(&env) == 0)
-		init(&env);
+	ft_test(&env);
+		//init(&env);
 	return (0);
 }
