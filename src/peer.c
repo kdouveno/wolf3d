@@ -44,13 +44,11 @@ void	mega_link_portals(t_pos *pos, t_peer *pb)
 {
 	t_base	*start;
 	t_base	*tmp;
-	int		id;
 
 	printf("C'est une sortie principale\n");
 	if (!(pb->base->obj.meta[1] & 6))
 		return ;
 	start = pb->base;
-	id = pb->id;
 	while (start)
 	{
 		tmp = *get_base(start);

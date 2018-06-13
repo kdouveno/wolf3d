@@ -6,17 +6,13 @@
 #    By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/15 15:48:03 by kdouveno          #+#    #+#              #
-<<<<<<< HEAD
 #    Updated: 2018/06/12 10:34:13 by gperez           ###   ########.fr        #
-=======
-#    Updated: 2018/06/11 15:23:53 by kdouveno         ###   ########.fr        #
->>>>>>> parser
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf
 
-CC = clang
+CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
 SRC_DIR =	src/
@@ -54,9 +50,9 @@ $(NAME): $(OBJS) libft/*.c libft/includes/libft.h
 	@$(CC) $(FLAGS) $(FM) libmlx.a libft/libft.a $(OBJS) -o $@
 	@printf "$(MAGENTA)%15s : $(GREEN)succesfuly made!%20.0d$(WHITE)\n" $(NAME) 0
 
-pain: $(OBJS) libft/*.c libft/includes/libft.h
-	@make -C libft
-	@$(CC) $(FLAGS) libmlx.a libft/libft.a $(OBJS) -o $@
+pain: $(OBJS) libft_gp/*.c libft_gp/libft.h
+	@make -C libft_gp
+	@$(CC) $(OBJS) ../minilibx/libmlx_Linux.a -lX11 -lXext -lm libft_gp/libft.a -o $@
 	@printf "$(MAGENTA)%15s : $(GREEN)succesfuly made!%20.0d$(WHITE)\n" $(NAME) 0
 
 %.o: $(SRC_DIR)%.c includes/wolf3d.h

@@ -17,7 +17,9 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+# include "../../minilibx/mlx.h"
+# include "/usr/include/X11/X.h"
 # define DIMX 1600
 # define DIMY 900
 # define NBR_PARAM_MAX 2
