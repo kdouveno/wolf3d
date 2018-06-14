@@ -34,3 +34,9 @@ double  rad(double deg)
 {
 	return (deg * 2 * M_PI / 360);
 }
+
+t_vec		ft_rotate_z(t_vec v, double teta)
+{
+	return((t_vec){cos(teta) * v.x - sin(teta) * v.y,
+		sin(teta) * v.x + cos(teta) * v.y, v.z});
+}

@@ -37,10 +37,10 @@ void k_direction (int key, t_env *e)
 
 void k_rotate (int key, t_env *e)
 {
-	if (key == 123)
-		e->cam.dir = apply(e->cam.dir, (t_vec){0,-30,0});
+	if (key == 123 || key == 65361)
+		e->cam.dir = ft_rotate_z(e->cam.dir, rad(1));
 	else
-		e->cam.dir = apply(e->cam.dir, (t_vec){0,30,0});
+		e->cam.dir = ft_rotate_z(e->cam.dir, rad(-1));
 	algo(e);
 }
 
@@ -60,9 +60,9 @@ int my_key(int key, t_env *e)
 		printf("d\n");
 		k_direction(key, e);
 	}
-	else if (key == 53)
+	else if (key == 53 || key == 65307)
 		k_escape(e);
-	else if (key == 123 || key == 124)
+	else if (key == 123 || key == 65361 || key == 124 || key == 65363)
 		k_rotate(key, e);
 	return (0);
 }
