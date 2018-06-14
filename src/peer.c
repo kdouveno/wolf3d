@@ -12,11 +12,13 @@
 
 #include "wolf3d.h"
 
-t_base	**get_base(t_base *b)
+t_base	**get_portal_base(t_base *b)
 {
-	t_metadir d;
+	return (get_base(b, b->obj.dir));
+}
 
-	d = b->obj.dir;
+t_base	**get_base(t_base *b, t_metadir d)
+{
 	if (d == UP)
 		return (&b->yu);
 	else if (d == RIGHT)
@@ -51,16 +53,16 @@ void	mega_link_portals(t_pos *pos, t_peer *pb)
 	start = pb->base;
 	while (start)
 	{
-		tmp = *get_base(start);
+		tmp = *get_portal_base(start);
 		printf("next: %p\n", tmp);
 		if (start->obj.meta[1] & 6)
 		{
 			printf("La meta: %d\n", start->obj.meta[1]);
-			(*get_base(start)) = pos->l_l;
+			(*get_portal_base(start)) = pos->l_l;
 			start->obj.cor = 0;
 			if (start->obj.meta[1] & 2)
 			{
-				(*get_base(pos->l_l)) = start;
+				(*get_portal_base(pos->l_l)) = start;
 				pos->l_l->obj.cor = 0;
 			}
 		}
@@ -70,18 +72,18 @@ void	mega_link_portals(t_pos *pos, t_peer *pb)
 
 void	check_portals(t_env *e, t_pos *pos, t_peer *pb)
 {
-	if ((*(get_base(pos->l_l)))->obj.type != 'w')
+	if ((*(get_portal_base(pos->l_l)))->obj.type != 'w')
 		error(e, PORTAL_ERROR);
 	if (pos->l_l->obj.meta[1] & 6)
 	{
 		if (pb->base->obj.meta[1] & 6)
 		{
-			(*get_base(pos->l_l)) = *get_base(pb->base);
-			(*get_base(pb->base)) = pos->l_l;
+			(*get_portal_base(pos->l_l)) = *get_portal_base(pb->base);
+			(*get_portal_base(pb->base)) = pos->l_l;
 		}
 		else
 		{
-			(*get_base(pos->l_l)) = pb->base;
+			(*get_portal_base(pos->l_l)) = pb->base;
 			pos->l_l->obj.cor = 0;
 		}
 	}

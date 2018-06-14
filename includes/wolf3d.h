@@ -174,7 +174,7 @@ void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 void					algo(t_env *e);
-int						scan(t_env *e, t_pt p, int i_x);
+void					scan(t_env *e, t_vec v);
 int 					my_key(int key, t_env *e);
 
 t_vec					ft_norm_vec(t_vec v);
@@ -182,5 +182,7 @@ t_pt					apply(t_vec v, t_pt p);
 t_vec					vecpro(t_vec v, double a);
 double					rad(double deg);
 t_vec					ft_rotate_z(t_vec v, double teta);
+
+t_base					**get_base(t_base *b, t_metadir d);
 
 #endif

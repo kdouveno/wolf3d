@@ -54,6 +54,6 @@ int		main(int argc, char **argv)
 	env.labstart = NULL;
 	parse(&env, argv[1]);
 	ft_test(&env);
-		init(&env);
+	init(&env);
 	return (0);
 }
