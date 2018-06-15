@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/11 16:06:42 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/15 20:15:32 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,19 @@ void	manage_ll(t_env *e, t_pos *pos)
 	static int	b;
 	int			a;
 
-	if (pos->y > 0 && !b)
+	a = 0;
+	if (pos->y > e->labstart->m.y && !b)
 	{
 		b = 1;
 		pos->l_l = e->labstart;
+		a = 1;
 	}
-	a = 0;
 	while (b && (pos->l_l->m.y < (pos->y - 1)
 	|| pos->l_l->m.x < pos->x))
 	{
 		if (a)
 			pos->l_l->yd = add_wall(e, pos->l_l);
+
 		check_peer(e, pos);
 		pos->l_l = pos->l_l->next;
 		a = 1;

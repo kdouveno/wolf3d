@@ -6,13 +6,13 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/12 14:02:36 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/15 20:02:53 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-/*static t_base	*check_u(t_base **b_wall)
+static t_base	*check_u(t_base **b_wall)
  {
  	t_base *t;
 
@@ -257,11 +257,11 @@
  	t = -(save->n.x * e->cam.p.x + save->n.y * e->cam.p.y - (save->m.x * save->n.x + save->m.y * save->n.y))
  	/ (save->n.x * v.x + save->n.y * v.y);
 
- 	printf("t : %f\n", t);
+ 	// printf("t : %f\n", t);
  	display(e, v, t, i_x);
  	return (0);
-}*/
-
+}
+/*
 t_base	*vertical_bitch(t_vec v, t_base *b)
 {
 	t_metadir	a;
@@ -307,4 +307,4 @@ void	scan(t_env *e, t_vec v)
 		}
 	}
 	printf("type: %c, p(%d, %d), v(%d, %d)\n", start->obj.type, (int)start->m.x, (int)start->m.y, (int)start->n.x, (int)start->n.y);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:35:47 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/12 13:48:31 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/15 19:58:51 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,15 @@ void k_direction (int key, t_env *e)
 void k_rotate (int key, t_env *e)
 {
 	if (key == 123 || key == 65361)
-		e->cam.dir = ft_rotate_z(e->cam.dir, rad(1));
+	{
+		e->cam.v_u = ft_rotate_z(e->cam.v_u, rad(-ROT));
+		e->cam.dir = ft_rotate_z(e->cam.dir, rad(-ROT));
+	}
 	else
-		e->cam.dir = ft_rotate_z(e->cam.dir, rad(-1));
+	{
+		e->cam.v_u = ft_rotate_z(e->cam.v_u, rad(ROT));
+		e->cam.dir = ft_rotate_z(e->cam.dir, rad(ROT));
+	}
 	algo(e);
 }
 
