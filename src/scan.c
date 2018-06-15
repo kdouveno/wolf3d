@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
- static t_base	*check_u(t_base **b_wall)
+/*static t_base	*check_u(t_base **b_wall)
  {
  	t_base *t;
 
@@ -260,8 +260,8 @@
  	printf("t : %f\n", t);
  	display(e, v, t, i_x);
  	return (0);
- }
-/*
+}*/
+
 t_base	*vertical_bitch(t_vec v, t_base *b)
 {
 	t_metadir	a;
@@ -277,34 +277,34 @@ void	scan(t_env *e, t_vec v)
 	t_base	*start;
 	double	val[4];
 	int		sens;
-	int 	x;
+ 	int		y;
+
 
 	if (v.x == 0)
 		start = vertical_bitch(v, e->cam.cur);
 	else
 	{
 		start = e->cam.cur;
-		printf("x: %f y: %f\n", start->m.x, start->m.y);
 		val[0] = v.y / v.x;
-		printf("val0 : %f\n", val[0]);
-
 		val[1] = -v.y * e->cam.p.x / v.y + e->cam.p.y;
 		sens = v.x > 0 ? 1 : -1;
 		val[2] = (int)e->cam.p.x + (sens == 1 ? 1 : 0);
 		while (start->obj.type != 'w')
 		{
-			x = val[0] * val[2] + val[1];
-			if (x > start->m.y)
+			y = (int)(val[0] * val[2] + val[1]);
+			// printf("x = %d, val: %f, calc: %f\n", y, val[3], val[0] * val[2] + val[1]);
+			if (y > start->m.y){
 			 	start = start->yd;
-			else if (x < start->m.y)
+			}
+			else if (y < start->m.y){
 				start = start->yu;
+			}
 			else
 			{
 				start = sens == 1 ? start->xu : start->xd;
 				val[2] += sens;
 			}
 		}
-		printf("pain");
 	}
 	printf("type: %c, p(%d, %d), v(%d, %d)\n", start->obj.type, (int)start->m.x, (int)start->m.y, (int)start->n.x, (int)start->n.y);
-}*/
+}

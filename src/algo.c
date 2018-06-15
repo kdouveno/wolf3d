@@ -20,6 +20,6 @@ void    algo(t_env *e)
 	i_x = 0;
 	bal = e->cam.dir;
 	while (i_x < DIMX)
-		scan(e, (bal = apply(e->cam.v_u, bal)), i_x++);
+		scan(e, (bal = apply(e->cam.v_u, bal))/*, i_x++*/);
 	mlx_put_image_to_window(e->mlx.ptr, e->mlx.win, e->mlx.imgptr, 0, 0);
 }
