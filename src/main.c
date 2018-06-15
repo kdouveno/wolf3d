@@ -34,11 +34,9 @@ int		init(t_env *e)
 	e->cam.fov = FOV;
 	e->cam.dist = (double) DIMX / tan(rad(e->cam.fov) / 2) * 2;
 	e->cam.dir = (t_vec){e->cam.dist, -DIMX / 2, DIMY / 2};
-	e->cam.v_u = (t_vec){0, 1, 0};
 	e->cam.dir = (t_vec){DIMX / tan(rad(e->cam.fov) / 2) * 2,
-		DIMX / 2, DIMY / 2};
+		-DIMX / 2, DIMY / 2};
 	e->cam.v_u = (t_vec){1, 1, 0};
-	e->cam.p = (t_pt){0.9, 0.9, e->cam.p.z};
 	algo(e);
 	mlx_hook(e->mlx.win, KeyPress, KeyPressMask, my_key, e);
 	mlx_loop(e->mlx.ptr);

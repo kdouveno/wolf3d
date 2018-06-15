@@ -174,7 +174,7 @@ void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 void					algo(t_env *e);
-void					scan(t_env *e, t_vec v);
+int						scan(t_env *e, t_vec v, int i_x);
 int 					my_key(int key, t_env *e);
 
 t_vec					ft_norm_vec(t_vec v);

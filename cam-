@@ -1,0 +1,71 @@
+algo.c:	bal = e->dir;
+src/algo.c:	bal = e->cam.dir;
+src/algo.c:		scan(e, (bal = apply(e->cam.v_u, bal)), i_x++);
+src/algo.c:	mlx_put_image_to_window(e->mlx.ptr, e->mlx.win, e->mlx.imgptr, 0, 0);
+src/ft_parse_line.c:		e->cam.p = (t_pt){(pos->cur->m.x + 0.5), (pos->cur->m.y + 0.5),
+src/ft_parse_line.c:		e->cam.cur = pos->cur;
+src/ft_parse_line.c:		pos->l_l = e->labstart;
+src/ft_parse_line.c:	if (!e->labstart)
+src/ft_parse_line.c:		e->labstart = pos->cur;
+src/ft_parse_line.c:		pos->l_l = e->labstart;
+src/ft_test.c:	save = e->labstart;
+src/ft_test.c:		if (nb_pos != save->m.y)
+src/ft_test.c:		ft_putchar(save->obj.type);
+src/ft_test.c:		nb_pos = save->m.y;
+src/ft_test.c:			ft_putnbr(save->m.x);
+src/ft_test.c:			ft_putnbr(save->m.y);
+src/ft_test.c:			ft_putnbr(save->m.z);
+src/ft_test.c:			ft_putnbr(save->obj.dir);
+src/ft_test.c:				ft_putnbr(save->obj.meta[i]);
+src/ft_test.c:			ft_putnbr(save->obj.cor);
+src/ft_test.c:		save = save->next;
+src/ft_test.c:	if (nb_pos != e->m.y)
+src/ft_test.c:	ft_putchar(e->obj.type);
+src/ft_test.c:	nb_pos = e->m.y;
+src/ft_test.c:	if (e->xd != NULL && e->xd->obj.type == 'w')
+src/ft_test.c:	if (e->yu != NULL && e->yu->obj.type == 'w')
+src/ft_test.c:	if (e->xu != NULL && e->xu->obj.type == 'w')
+src/ft_test.c:	if (e->yd != NULL && e->yd->obj.type == 'w')
+src/ft_test.c:	if (e->next != NULL)
+src/ft_test.c:		ft_test_rec(e->next, nb_pos);
+src/ft_test.c:	save = e->labstart;
+src/keys.c:		e->cam.p = apply(e->cam.p, e->cam.move);
+src/keys.c:		e->cam.dir = ft_rotate_z(e->cam.dir, rad(1));
+src/keys.c:		e->cam.dir = ft_rotate_z(e->cam.dir, rad(-1));
+src/keys.c:	mlx_destroy_image(e->mlx.ptr, e->mlx.imgptr);
+src/keys.c:	mlx_destroy_window(e->mlx.ptr, e->mlx.win);
+src/main.c:	if ((e->mlx.ptr = mlx_init()) == NULL
+src/main.c:	|| (e->mlx.win = mlx_new_window(e->mlx.ptr, DIMX,
+src/main.c:	|| (e->mlx.imgptr = mlx_new_image(e->mlx.ptr, DIMX, DIMY)) == NULL
+src/main.c:	|| (e->mlx.img = (int*)mlx_get_data_addr(e->mlx.imgptr, e->mlx.imgarg,
+src/main.c:		e->mlx.imgarg + 1, e->mlx.imgarg + 2)) == NULL)
+src/main.c:	e->cam.fov = FOV;
+src/main.c:	e->cam.dist = (double) DIMX / tan(rad(e->cam.fov) / 2) * 2;
+src/main.c:	e->cam.dir = (t_vec){e->cam.dist, -DIMX / 2, DIMY / 2};
+src/main.c:	e->cam.v_u = (t_vec){0, 1, 0};
+src/main.c:	e->cam.dir = (t_vec){DIMX / tan(rad(e->cam.fov) / 2) * 2,
+src/main.c:	e->cam.v_u = (t_vec){1, 1, 0};
+src/main.c:	mlx_hook(e->mlx.win, KeyPress, KeyPressMask, my_key, e);
+src/main.c:	mlx_loop(e->mlx.ptr);
+src/peer.c:	if (!(pb->base->obj.meta[1] & 6))
+src/peer.c:		if (pb->base->obj.meta[1] & 6)
+src/peer.c:		&& g_meta_chars[i].match != pb->base->obj.type
+src/peer.c:			pb->base->obj.cor = 0;
+src/scan.c: 	y = (dir == UP_LEFT || dir == UP_RIGHT) ? t_base->m.y : t_base->m.y + 1;
+src/scan.c: 	h = e->cam.dist / t;
+src/scan.c: 	printf("dist : %f\n", e->cam.dist);
+src/scan.c: 		e->mlx.img[i * DIMX + i_x] = 0x1015FF;
+src/scan.c: 		e->mlx.img[i * DIMX + i_x] = 0xFFFFFF;
+src/scan.c: 		e->mlx.img[i * DIMX + i_x] = 0xFFFF00;
+src/scan.c: 	e->cam.move = ft_norm_vec((t_vec){e->cam.dir.x, e->cam.dir.y + DIMX / 2,
+src/scan.c: 		e->cam.dir.z - DIMX / 2});
+src/scan.c: 	b_wall = e->cam.cur;
+src/scan.c: 	p = e->cam.p;
+src/scan.c: //	printf("plan x : %f y : %f z : %f\nvecteur du plan x: %f y : %f z : %f\n",save->m.x, save->m.y, save->m.z, save->n.x, save->n.y, save->n.z);
+src/scan.c: //	printf("test: %f * %f + %f * %f\n",save->n.x, v.x, save->n.y, v.y);
+src/scan.c: 	t = -(save->n.x * e->cam.p.x + save->n.y * e->cam.p.y - (save->m.x * save->n.x + save->m.y * save->n.y))
+src/scan.c: 	/ (save->n.x * v.x + save->n.y * v.y);
+src/scan.c:		start = vertical_bitch(v, e->cam.cur);
+src/scan.c:		start = e->cam.cur;
+src/scan.c:		val[1] = -v.y * e->cam.p.x / v.y + e->cam.p.y;
+src/scan.c:		val[2] = (int)e->cam.p.x + (sens == 1 ? 1 : 0);
