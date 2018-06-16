@@ -17,9 +17,9 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-// # include "../../minilibx/mlx.h"
-// # include "/usr/include/X11/X.h"
+//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+# include "../../minilibx/mlx.h"
+# include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
@@ -183,6 +183,7 @@ t_pt					apply(t_vec v, t_pt p);
 t_vec					vecpro(t_vec v, double a);
 double					rad(double deg);
 t_vec					ft_rotate_z(t_vec v, double teta);
+t_vec					ft_neg_vec(t_vec v);
 
 t_base					**get_base(t_base *b, t_metadir d);
 

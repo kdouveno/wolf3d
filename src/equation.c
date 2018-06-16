@@ -20,6 +20,11 @@ t_vec		ft_norm_vec(t_vec v)
 	return ((t_vec){v.x / a, v.y / a, v.z});
 }
 
+t_vec		ft_neg_vec(t_vec v)
+{
+	return ((t_vec){-v.x, -v.y, -v.z});
+}
+
 t_pt	apply(t_vec v, t_pt p)
 {
 	return ((t_pt){p.x + v.x, p.y + v.y, p.z + v.z});
