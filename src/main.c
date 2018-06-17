@@ -31,9 +31,11 @@ int		init(t_env *e)
 		e->mlx.imgarg + 1, e->mlx.imgarg + 2)) == NULL)
 		error(e, MLX_ERROR);
 	e->cam.fov = FOV;
-	e->cam.dist = (double) DIMX / tan(rad(e->cam.fov) / 2) * 2;
-	e->cam.dir = (t_vec){e->cam.dist, DIMX / 2, DIMY / 2};
-	e->cam.v_u = (t_vec){0, -1, 0};
+	e->cam.dist = (double) (DIMX / 2) / tan(rad(FOV / 2));
+	e->cam.dir = (t_vec){e->cam.dist, -DIMX / 2, DIMY / 2};
+	printf("v: %f %f %f\n", e->cam.dir.x, e->cam.dir.y, e->cam.dir.z);
+
+	e->cam.v_u = (t_vec){0, 1, 0};
 	algo(e);
 	printf("x: %f y :%f\n",e->cam.p.x, e->cam.p.y);
 	mlx_hook(e->mlx.win, KeyPress, KeyPressMask, my_key, e);

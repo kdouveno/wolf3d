@@ -16,33 +16,33 @@ void k_direction (int key, t_env *e)
 {
 	(void)key;
 	if (key == 0 || key == 113)
-		e->cam.p = apply(vecpro(e->cam.v_u, 0.1), e->cam.p);
+		e->cam.p = apply(vecpro(e->cam.v_u, -0.1), e->cam.p);
 	else if (key == 1 || key == 115)
 	{
 	}
 	else if (key == 2 || key == 100)
-		e->cam.p = apply(vecpro(e->cam.v_u, -0.1), e->cam.p);
+		e->cam.p = apply(vecpro(e->cam.v_u, 0.1), e->cam.p);
 	else
 	{
 //	if (key == 13)
 //		e->cam.p = apply(e->cam.p, e->cam.move);
 	}
 	algo(e);
-	printf("x: %f y: %f z: %f\n", e->cam.p.x, e->cam.p.y, e->cam.p.z);
-	printf("x: %f y: %f z: %f\n", e->cam.v_u.x, e->cam.v_u.y, e->cam.v_u.z);
+//	printf("x: %f y: %f z: %f\n", e->cam.p.x, e->cam.p.y, e->cam.p.z);
+//	printf("x: %f y: %f z: %f\n", e->cam.v_u.x, e->cam.v_u.y, e->cam.v_u.z);
 }
 
 void k_rotate (int key, t_env *e)
 {
 	if (key == 123 || key == 65361)
 	{
-		e->cam.v_u = ft_rotate_z(e->cam.v_u, rad(ROT));
-		e->cam.dir = ft_rotate_z(e->cam.dir, rad(ROT));
+		e->cam.v_u = ft_rotate_z(e->cam.v_u, rad(-ROT));
+		e->cam.dir = ft_rotate_z(e->cam.dir, rad(-ROT));
 	}
 	else
 	{
-		e->cam.v_u = ft_rotate_z(e->cam.v_u, rad(-ROT));
-		e->cam.dir = ft_rotate_z(e->cam.dir, rad(-ROT));
+		e->cam.v_u = ft_rotate_z(e->cam.v_u, rad(ROT));
+		e->cam.dir = ft_rotate_z(e->cam.dir, rad(ROT));
 	}
 	algo(e);
 }

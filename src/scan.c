@@ -264,8 +264,8 @@ static t_base	*check_u(t_base **b_wall)
  	// printf("t : %f\n", t);
  	display(e, v, t, i_x);
  	return (0);
-}*/
-
+}
+*/
 double dist(t_pt p1, t_pt p2)
 {
     return (hypot(p1.x - p2.x, p1.y - p2.y));
@@ -278,10 +278,10 @@ void    display(t_env *e, int i_x, t_pt pt)
    int		e_w;
    int		i;
 
-   i = 0;
-   printf("pt display: (%f, %f)\n", pt.x, pt.y);
-   h = dist(e->cam.p, pt);
-   printf("h : %f\n", h);
+	i = 0;
+	printf("pt display: (%f, %f)\n", pt.x, pt.y);
+	h = e->cam.dist / dist(e->cam.p, pt);
+	printf("h : %f\n", h);
 
    s_w = h > DIMY ? 0 : (DIMY - h) / 2;
    e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
@@ -330,16 +330,17 @@ void	scan(t_env *e, t_vec v, int i_x)
 	double		val[4];
  	int			y;
     t_metadir	dir;
+	int			i_test;
 
-    (void)i_x;
+	i_test = 0;
 	if (v.x == 0)
 		start = vertical_bitch(v, e->cam.cur);
 	else
 	{
 		start = e->cam.cur;
-		val[0] = -v.y / v.x;
+		val[0] = v.y / v.x;
 		val[1] = -v.y * e->cam.p.x / v.x + e->cam.p.x;
-		val[2] = (int)e->cam.p.x + (v.x > 0 ? 1 : 0);
+		val[2] = e->cam.cur->m.x + (v.x > 0 ? 1 : 0);
 		while (start->obj.type != 'w')
 		{
 			val[3] = val[0] * val[2] + val[1];
@@ -354,8 +355,11 @@ void	scan(t_env *e, t_vec v, int i_x)
 				val[2] += v.x > 0 ? 1 : -1;
 			}
 			start = *get_base(start, dir);
+			i_test++;
 		}
+//		printf("i: %d\n", i_test);
+	// printf("val0: %f val1: %f val2: %f val3: %f\n", val[0], val[1], val[2], val[3]);
 	}
-	printf("y = %f, type: %c, p(%d, %d), v(%d, %d)\n", val[3], start->obj.type, (int)start->m.x, (int)start->m.y, (int)start->n.x, (int)start->n.y);
+	// printf("y = %f, type: %c, p(%f, %f), v(%f, %f)\n", val[3], start->obj.type, start->m.x, start->m.y, start->n.x, start->n.y);
 	entre_deux(e, dir, start, val, i_x);
 }
