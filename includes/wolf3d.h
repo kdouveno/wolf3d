@@ -23,7 +23,7 @@
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
-# define FOV 100
+# define FOV 80
 # define ROT 5
 # include <fcntl.h>
 # include <math.h>
@@ -175,9 +175,9 @@ void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 void					algo(t_env *e);
-int						scan(t_env *e, t_vec v, int i_x);
+void					scan(t_env *e, t_vec v, int i_x);
 int 					my_key(int key, t_env *e);
-
+t_base					**get_base(t_base *base, t_metadir dir);
 t_vec					ft_norm_vec(t_vec v);
 t_pt					apply(t_vec v, t_pt p);
 t_vec					vecpro(t_vec v, double a);

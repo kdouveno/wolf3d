@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
+/*
 static t_base	*check_u(t_base **b_wall)
- {
+{
  	t_base *t;
 
  	t = *b_wall;
@@ -73,7 +73,7 @@ static t_base	*check_u(t_base **b_wall)
  		if (check_u(b_wall) != NULL)
  			return(*b_wall);
  	}
- 	else
+ 	else if (dir == DOWN_LEFT)
  	{
  		if (check_l(b_wall) != NULL)
  			return(*b_wall);
@@ -92,7 +92,7 @@ static t_base	*check_u(t_base **b_wall)
  		if (check_u(b_wall) != NULL)
  			return(*b_wall);
  	}
- 	else
+ 	else if (dir == DOWN_RIGHT)
  	{
  		if (check_r(b_wall) != NULL)
  			return(*b_wall);
@@ -242,7 +242,9 @@ static t_base	*check_u(t_base **b_wall)
  	t_base	*b_wall;
  	t_base	*save;
  	double	t;
+    int     i;
 
+    i = 0;
  	b_wall = e->cam.cur;
  	v = ft_norm_vec(v);
  	p = e->cam.p;
@@ -251,7 +253,9 @@ static t_base	*check_u(t_base **b_wall)
  //	printf("v.x = %f\nv.y = %f\n", v.x, v.y);
  	while ((save = check_wall(&b_wall, check_base(v, &old, &p), v, &old)) == NULL)
  	{
+        i++;
  	}
+    //printf("i = %d\n", i);
  //	printf("plan x : %f y : %f z : %f\nvecteur du plan x: %f y : %f z : %f\n",save->m.x, save->m.y, save->m.z, save->n.x, save->n.y, save->n.z);
  //	printf("test: %f * %f + %f * %f\n",save->n.x, v.x, save->n.y, v.y);
  	t = -(save->n.x * e->cam.p.x + save->n.y * e->cam.p.y - (save->m.x * save->n.x + save->m.y * save->n.y))
@@ -260,8 +264,48 @@ static t_base	*check_u(t_base **b_wall)
  	// printf("t : %f\n", t);
  	display(e, v, t, i_x);
  	return (0);
+}*/
+
+double dist(t_pt p1, t_pt p2)
+{
+    return (hypot(p1.x - p2.x, p1.y - p2.y));
 }
-/*
+
+void    display(t_env *e, int i_x, t_pt pt)
+{
+   double	h;
+   int		s_w;
+   int		e_w;
+   int		i;
+
+   i = 0;
+   printf("pt display: (%f, %f)\n", pt.x, pt.y);
+   h = dist(e->cam.p, pt);
+   printf("h : %f\n", h);
+
+   s_w = h > DIMY ? 0 : (DIMY - h) / 2;
+   e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
+//	printf("s_w : %d, e_w : %d\n", s_w, e_w);
+   while (i < s_w)
+   {
+       //afficher pixel toit;
+       e->mlx.img[i * DIMX + i_x] = 0x1015FF;
+       i++;
+   }
+   while (i < e_w)
+   {
+       //afficher pixel mur;
+       e->mlx.img[i * DIMX + i_x] = 0xFFFFFF;
+       i++;
+   }
+   while (i < DIMY)
+   {
+       //afficher pixel sol;
+       e->mlx.img[i * DIMX + i_x] = 0xFFFF00;
+       i++;
+   }
+}
+
 t_base	*vertical_bitch(t_vec v, t_base *b)
 {
 	t_metadir	a;
@@ -272,39 +316,46 @@ t_base	*vertical_bitch(t_vec v, t_base *b)
 	return (*get_base(b, a));
 }
 
-void	scan(t_env *e, t_vec v)
+void	entre_deux(t_env *e, t_metadir dir, t_base *start, double val[4], int i_x)
 {
-	t_base	*start;
-	double	val[4];
-	int		sens;
- 	int		y;
+	if (dir == UP || dir == DOWN)
+		display(e, i_x, (t_pt){(start->m.y - val[1]) / val[0], start->m.y, 0.5});
+	else
+		display(e, i_x, (t_pt){start->m.x, val[3], 0.5});
+}
 
+void	scan(t_env *e, t_vec v, int i_x)
+{
+	t_base		*start;
+	double		val[4];
+ 	int			y;
+    t_metadir	dir;
 
+    (void)i_x;
 	if (v.x == 0)
 		start = vertical_bitch(v, e->cam.cur);
 	else
 	{
 		start = e->cam.cur;
-		val[0] = v.y / v.x;
-		val[1] = -v.y * e->cam.p.x / v.y + e->cam.p.y;
-		sens = v.x > 0 ? 1 : -1;
-		val[2] = (int)e->cam.p.x + (sens == 1 ? 1 : 0);
+		val[0] = -v.y / v.x;
+		val[1] = -v.y * e->cam.p.x / v.x + e->cam.p.x;
+		val[2] = (int)e->cam.p.x + (v.x > 0 ? 1 : 0);
 		while (start->obj.type != 'w')
 		{
-			y = (int)(val[0] * val[2] + val[1]);
-			// printf("x = %d, val: %f, calc: %f\n", y, val[3], val[0] * val[2] + val[1]);
-			if (y > start->m.y){
-			 	start = start->yd;
-			}
-			else if (y < start->m.y){
-				start = start->yu;
-			}
+			val[3] = val[0] * val[2] + val[1];
+			y = (int)val[3];
+			if (y > start->m.y)
+				dir = DOWN;
+			else if (y < start->m.y)
+				dir = UP;
 			else
 			{
-				start = sens == 1 ? start->xu : start->xd;
-				val[2] += sens;
+				dir = v.x > 0 ? RIGHT : LEFT;
+				val[2] += v.x > 0 ? 1 : -1;
 			}
+			start = *get_base(start, dir);
 		}
 	}
-	printf("type: %c, p(%d, %d), v(%d, %d)\n", start->obj.type, (int)start->m.x, (int)start->m.y, (int)start->n.x, (int)start->n.y);
-}*/
+	printf("y = %f, type: %c, p(%d, %d), v(%d, %d)\n", val[3], start->obj.type, (int)start->m.x, (int)start->m.y, (int)start->n.x, (int)start->n.y);
+	entre_deux(e, dir, start, val, i_x);
+}
