@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/15 19:57:38 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:14:56 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-# include "../../minilibx/mlx.h"
-# include "/usr/include/X11/X.h"
+# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+// # include "../../minilibx/mlx.h"
+// # include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
@@ -167,20 +167,26 @@ void					parse(t_env *e, char *path);
 int						check_line(char *line);
 int						check_meta(char *line, int i);
 void					add_base(t_env *e, t_pos *pos, char **tab, char c);
+
 int						ft_test(t_env *e);
 void					error(t_env *e, char *msg);
+
 t_base					*add_wall(t_env *e, t_base *base);
 void					wall_left(t_env *e, t_pos *pos);
 void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
+
 void					algo(t_env *e);
-void					scan(t_env *e, t_vec v, int i_x);
+t_pt					scan(t_env *e, t_vec v);
+
 int 					my_key(int key, t_env *e);
 t_base					**get_base(t_base *base, t_metadir dir);
+
 t_vec					ft_norm_vec(t_vec v);
 t_pt					apply(t_vec v, t_pt p);
 t_vec					vecpro(t_vec v, double a);
+
 double					rad(double deg);
 t_vec					ft_rotate_z(t_vec v, double teta);
 t_vec					ft_neg_vec(t_vec v);

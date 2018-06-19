@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/15 20:02:53 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:15:21 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,75 +266,34 @@ static t_base	*check_u(t_base **b_wall)
  	return (0);
 }
 */
-double dist(t_pt p1, t_pt p2)
+
+t_pt	vertical_bitch(t_env *e, t_base *b, t_metadir dir)
 {
-    return (hypot(p1.x - p2.x, p1.y - p2.y));
+	while ((*get_base(b, dir))->obj.type != 'w')
+		b = *get_base(b, dir);
+	return ((t_pt){e->cam.p.x, b->m.x, 0.5});
 }
 
-void    display(t_env *e, int i_x, t_pt pt)
-{
-   double	h;
-   int		s_w;
-   int		e_w;
-   int		i;
-
-	i = 0;
-	printf("pt display: (%f, %f)\n", pt.x, pt.y);
-	h = e->cam.dist / dist(e->cam.p, pt);
-	printf("h : %f\n", h);
-
-   s_w = h > DIMY ? 0 : (DIMY - h) / 2;
-   e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
-//	printf("s_w : %d, e_w : %d\n", s_w, e_w);
-   while (i < s_w)
-   {
-       //afficher pixel toit;
-       e->mlx.img[i * DIMX + i_x] = 0x1015FF;
-       i++;
-   }
-   while (i < e_w)
-   {
-       //afficher pixel mur;
-       e->mlx.img[i * DIMX + i_x] = 0xFFFFFF;
-       i++;
-   }
-   while (i < DIMY)
-   {
-       //afficher pixel sol;
-       e->mlx.img[i * DIMX + i_x] = 0xFFFF00;
-       i++;
-   }
-}
-
-t_base	*vertical_bitch(t_vec v, t_base *b)
-{
-	t_metadir	a;
-
-	a = v.y > 0 ? DOWN : UP;
-	while ((*get_base(b, a))->obj.type != 'w')
-		b = *get_base(b, a);
-	return (*get_base(b, a));
-}
-
-void	entre_deux(t_env *e, t_metadir dir, t_base *start, double val[4], int i_x)
+t_pt	entre_deux(t_metadir dir, t_base *start, double val[4])
 {
 	if (dir == UP || dir == DOWN)
-		display(e, i_x, (t_pt){(start->m.y - val[1]) / val[0], start->m.y, 0.5});
+		return ((t_pt){(start->m.y - val[1]) / val[0],
+			start->m.y, 0.5});
 	else
-		display(e, i_x, (t_pt){start->m.x, val[3], 0.5});
+		return ((t_pt){start->m.x, val[3], 0.5});
 }
 
-void	scan(t_env *e, t_vec v, int i_x)
+t_pt	scan(t_env *e, t_vec v)
 {
 	t_base		*start;
 	double		val[4];
- 	int			y;
-    t_metadir	dir;
+	int			y;
+	t_metadir	dir;
 	int			i_test;
 
 	i_test = 0;
 	if (v.x == 0)
-		start = vertical_bitch(v, e->cam.cur);
+		return (vertical_bitch(e, e->cam.cur, v.y > 0 ? DOWN : UP));
 	else
 	{
 		start = e->cam.cur;
@@ -357,9 +316,9 @@ void	scan(t_env *e, t_vec v, int i_x)
 			start = *get_base(start, dir);
 			i_test++;
 		}
-//		printf("i: %d\n", i_test);
+	// printf("i: %d\n", i_test);
 	// printf("val0: %f val1: %f val2: %f val3: %f\n", val[0], val[1], val[2], val[3]);
 	}
 	// printf("y = %f, type: %c, p(%f, %f), v(%f, %f)\n", val[3], start->obj.type, start->m.x, start->m.y, start->n.x, start->n.y);
-	entre_deux(e, dir, start, val, i_x);
+	return (entre_deux(dir, start, val));
 }
