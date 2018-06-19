@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 16:03:15 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/10 18:00:39 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/19 17:33:52 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,53 @@ int    ft_test_rec(t_base *e, int nb_pos)
 	return (0);
 }
 
+void	ft_test_complet(t_env *e)
+{
+	t_base *start;
+
+	start = e->labstart;
+	while (start)
+	{
+		printf("%p | '%c' %3d %3d %3d | %3d %3d %3d | %d | %d %d | %d\n", start,
+			start->obj.type, (int)start->m.x, (int)start->m.y, (int)start->m.z, (int)start->n.x, (int)start->n.y, (int)start->n.z, start->obj.dir, start->obj.meta[0], start->obj.meta[1], start->obj.cor);
+		printf("\t/\\ %p", start->yu);
+		if (start->yu)
+			printf(" | '%c' %3d %3d %3d | %3d %3d %3d | %d | %d %d | %d\n",
+			start->yu->obj.type, (int)start->yu->m.x, (int)start->yu->m.y, (int)start->yu->m.z, (int)start->yu->n.x, (int)start->yu->n.y, (int)start->yu->n.z, start->yu->obj.dir, start->yu->obj.meta[0], start->yu->obj.meta[1], start->yu->obj.cor);
+		else
+			printf("\n");
+			printf("\t>> %p", start->xu);
+		if (start->xu)
+			printf(" | '%c' %3d %3d %3d | %3d %3d %3d | %d | %d %d | %d\n",
+			start->xu->obj.type, (int)start->xu->m.x, (int)start->xu->m.y, (int)start->xu->m.z, (int)start->xu->n.x, (int)start->xu->n.y, (int)start->xu->n.z, start->xu->obj.dir, start->xu->obj.meta[0], start->xu->obj.meta[1], start->xu->obj.cor);
+		else
+			printf("\n");
+			printf("\t\\/ %p", start->yd);
+		if (start->yd)
+			printf(" | '%c' %3d %3d %3d | %3d %3d %3d | %d | %d %d | %d\n",
+			start->yd->obj.type, (int)start->yd->m.x, (int)start->yd->m.y, (int)start->yd->m.z, (int)start->yd->n.x, (int)start->yd->n.y, (int)start->yd->n.z, start->yd->obj.dir, start->yd->obj.meta[0], start->yd->obj.meta[1], start->yd->obj.cor);
+		else
+			printf("\n");
+			printf("\t<< %p", start->xd);
+		if (start->xd)
+			printf(" | '%c' %3d %3d %3d | %3d %3d %3d | %d | %d %d | %d\n",
+			start->xd->obj.type, (int)start->xd->m.x, (int)start->xd->m.y, (int)start->xd->m.z, (int)start->xd->n.x, (int)start->xd->n.y, (int)start->xd->n.z, start->xd->obj.dir, start->xd->obj.meta[0], start->xd->obj.meta[1], start->xd->obj.cor);
+		else
+			printf("\n");
+		if (start->next && start->next->m.y != start->m.y)
+			printf("\n");
+
+		start = start->next;
+	}
+}
+
 int		ft_test(t_env *e)
 {
 	t_base *save;
 
 	save = e->labstart;
-	ft_test_rec(save, 1);
- 	ft_test_next(e, 1);
+	// ft_test_rec(save, 1);
+ 	// ft_test_next(e, 1);
+	ft_test_complet(e);
 	return (0);
 }
