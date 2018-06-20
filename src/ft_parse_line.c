@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/15 20:15:32 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/20 17:06:51 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	manage_ll(t_env *e, t_pos *pos)
 	{
 		b = 1;
 		pos->l_l = e->labstart;
+		check_peer(e, pos);
 		a = 1;
 	}
 	while (b && (pos->l_l->m.y < (pos->y - 1)
@@ -58,7 +59,6 @@ void	manage_ll(t_env *e, t_pos *pos)
 	{
 		if (a)
 			pos->l_l->yd = add_wall(e, pos->l_l);
-
 		check_peer(e, pos);
 		pos->l_l = pos->l_l->next;
 		a = 1;
@@ -92,7 +92,8 @@ void	finish(t_env *e, t_pos *pos)
 
 	if (!pos->l_l)
 		pos->l_l = e->labstart;
-	pos->l_l = pos->l_l->next;
+	else
+		pos->l_l = pos->l_l->next;
 	w = add_wall(e, pos->l_l);
 	w->n = (t_vec){1, 0, 0};
 	w->m = (t_vec){pos->l->m.x + 1, pos->l->m.y + 1, pos->l->m.z};
@@ -107,4 +108,6 @@ void	finish(t_env *e, t_pos *pos)
 		check_peer(e, pos);
 		pos->l_l = pos->l_l->next;
 	}
+	if (!e->cam.cur)
+		error(e, NO_START_ERROR);
 }
