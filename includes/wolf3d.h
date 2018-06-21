@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/20 17:22:12 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/21 15:50:01 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
-# define FOV 80
+# define FOV 90
 # define ROT 5
-# define MOV 0.0001
+# define MOV 0.1
 # include <fcntl.h>
 # include <math.h>
 

@@ -6,7 +6,7 @@
 #    By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/15 15:48:03 by kdouveno          #+#    #+#              #
-#    Updated: 2018/06/12 10:34:13 by gperez           ###   ########.fr        #
+#    Updated: 2018/06/21 16:01:35 by gperez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ clean:
 fclean: clean
 	@make -C libft fclean
 	@rm -f $(NAME)
+	@rm -f pain
 
 test:
 	printf "$(GREEN)sauce$(WHITE)\n"

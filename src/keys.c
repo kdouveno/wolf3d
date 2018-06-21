@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:35:47 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/15 19:58:51 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/21 15:55:26 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ void	k_direction (int key, t_env *e)
 	t_pt move;
 
 	if (key == 0 || key == 113)
-		move = apply(vecpro(e->cam.v_u, -0.1), e->cam.p);
+		move = apply(vecpro(e->cam.v_u, -MOV), e->cam.p);
 	else if (key == 1 || key == 115)
-		move = apply(vecpro(ft_neg_vec(e->cam.dir), MOV), e->cam.p);
+		move = apply(vecpro(ft_norm_vec(e->cam.dir), -MOV), e->cam.p);
 	else if (key == 2 || key == 100)
-		move = apply(vecpro(e->cam.v_u, 0.1), e->cam.p);
+		move = apply(vecpro(e->cam.v_u, MOV), e->cam.p);
 	else
-		move = apply(vecpro(e->cam.dir, MOV), e->cam.p);
+		move = apply(vecpro(ft_norm_vec(e->cam.dir), MOV), e->cam.p);
 	if (move.x > 0 && move.y > 0)
 		detect_wall(e, move);
 	algo(e);
 	printf("x: %f y: %f z: %f\n", e->cam.p.x, e->cam.p.y, e->cam.p.z);
 }
 
-void k_rotate (int key, t_env *e)
+void	k_rotate (int key, t_env *e)
 {
 	if (key == 123 || key == 65361)
 	{
