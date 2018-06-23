@@ -17,13 +17,13 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-// # include "../../minilibx/mlx.h"
-// # include "/usr/include/X11/X.h"
+//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+# include "../../minilibx/mlx.h"
+# include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
-# define FOV 90
+# define FOV 60
 # define ROT 5
 # define MOV 0.1
 # include <fcntl.h>

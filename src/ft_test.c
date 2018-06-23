@@ -75,7 +75,7 @@ int    ft_test_rec(t_base *e, int nb_pos)
 		ft_test_rec(e->next, nb_pos);
 	return (0);
 }
-
+/*
 void	ft_test_complet(t_env *e)
 {
 	t_base *start;
@@ -115,14 +115,14 @@ void	ft_test_complet(t_env *e)
 		start = start->next;
 	}
 }
-
+*/
 int		ft_test(t_env *e)
 {
 	t_base *save;
 
 	save = e->labstart;
-	// ft_test_rec(save, 1);
- 	// ft_test_next(e, 1);
-	ft_test_complet(e);
+ 	ft_test_rec(save, 1);
+	//ft_test_next(e, 1);
+//	ft_test_complet(e);
 	return (0);
 }
