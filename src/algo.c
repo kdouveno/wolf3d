@@ -26,8 +26,7 @@ void	display(t_env *e, int i_x, t_pt pt, double ang)
 
 	i = 0;
 	h = e->cam.dist / (dist(e->cam.p, pt) * cos(ang));
-	//printf("h = %f\n", dist(e->cam.p, pt));
-	//printf("midl = %f\n", midl);
+	printf("pt : %f %f %f\n",pt.x, pt.y, pt.z);
 	s_w = h > DIMY ? 0 : (DIMY - h) / 2;
 	e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
 	while (i < DIMY)
@@ -53,7 +52,7 @@ void	algo(t_env *e)
 	int		i_x;
 
 	i_x = 0;
-	printf("dir : %f %f %f\n",e->cam.dir.x, e->cam.dir.y, e->cam.dir.z);
+	//printf("dir : %f %f %f\n",e->cam.dir.x, e->cam.dir.y, e->cam.dir.z);
 	bal = apply(vecpro(e->cam.v_u, -DIMX / 2), e->cam.dir);
 	while (i_x < DIMX)
 	{

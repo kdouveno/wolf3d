@@ -316,9 +316,8 @@ t_pt	scan(t_env *e, t_vec v)
 			start = *get_base(start, dir);
 			i_test++;
 		}
-	// printf("i: %d\n", i_test);
-	// printf("val0: %f val1: %f val2: %f val3: %f\n", val[0], val[1], val[2], val[3]);
+		//printf("val 3: %f x: %f b: %f a: %f\n", val[3], val[2], val[1], val[0]);
+		//printf("%d\n", y);
 	}
-	// printf("y = %f, type: %c, p(%f, %f), v(%f, %f)\n", val[3], start->obj.type, start->m.x, start->m.y, start->n.x, start->n.y);
 	return (entre_deux(dir, start, val));
 }
