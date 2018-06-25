@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/19 15:15:21 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/25 16:18:47 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,7 @@ t_pt	scan(t_env *e, t_vec v)
 	{
 		start = e->cam.cur;
 		val[0] = v.y / v.x;
-		val[1] = -v.y * e->cam.p.x / v.x + e->cam.p.x;
+		val[1] = -v.y * e->cam.p.x / v.x + e->cam.p.y;
 		val[2] = e->cam.cur->m.x + (v.x > 0 ? 1 : 0);
 		while (start->obj.type != 'w')
 		{
@@ -316,8 +316,6 @@ t_pt	scan(t_env *e, t_vec v)
 			start = *get_base(start, dir);
 			i_test++;
 		}
-		//printf("val 3: %f x: %f b: %f a: %f\n", val[3], val[2], val[1], val[0]);
-		//printf("%d\n", y);
 	}
 	return (entre_deux(dir, start, val));
 }

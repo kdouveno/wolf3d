@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 14:55:47 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/11 16:52:47 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/25 13:42:16 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	check_peer(t_env *e, t_pos *pos)
 	i = 0;
 	if (!pos->l_l)
 		return ;
-	printf("'%c' %d %d    %d %d\n", pos->l_l->obj.type, (int)pos->l_l->m.x, (int)pos->l_l->m.y, pos->l_l->obj.meta[0], pos->l_l->obj.meta[1]);
 	while (g_meta_chars[i].c != pos->l_l->obj.type)
 		i++;
 	pb = pos->peer;

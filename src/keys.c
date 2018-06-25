@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:35:47 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/21 15:55:26 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/25 16:27:49 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	k_direction (int key, t_env *e)
 	if (move.x > 0 && move.y > 0)
 		detect_wall(e, move);
 	algo(e);
-	printf("x: %f y: %f z: %f\n", e->cam.p.x, e->cam.p.y, e->cam.p.z);
 }
 
 void	k_rotate (int key, t_env *e)

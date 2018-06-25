@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/21 15:50:01 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/25 16:26:16 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-# include "../../minilibx/mlx.h"
-# include "/usr/include/X11/X.h"
+# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+//# include "../../minilibx/mlx.h"
+//# include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
-# define FOV 60
+# define FOV 85
 # define ROT 5
 # define MOV 0.1
 # include <fcntl.h>

@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:56 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/11 15:26:21 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/25 16:18:30 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		parse_line(t_env *e, t_pos *pos, char *lab, char **tab)
 	if (lab)
 	{
 		i = 0;
-		pos->x = 0;
+		pos->x = 1;
 		while (lab[i])
 		{
 			if (lab[i] != ' ')
@@ -70,7 +70,7 @@ void		parse(t_env *e, char *path)
 	char	**tab;
 	t_pos	pos;
 
-	pos = (t_pos){NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0};
+	pos = (t_pos){NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 1};
 	if ((fd = open(path, O_RDONLY)) == -1)
 		error(e, OPEN_ERROR);
 	while ((check = get_next_line(fd, &line)) >= 1)
@@ -84,7 +84,6 @@ void		parse(t_env *e, char *path)
 		free(line);
 	}
 	finish(e, &pos);
-	printf("content\n");
 	if (check == -1)
 		error(e, READ_ERROR);
 	if (close(fd) == -1)

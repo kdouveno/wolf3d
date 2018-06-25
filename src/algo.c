@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:37:08 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/21 16:00:39 by gperez           ###   ########.fr       */
+/*   Updated: 2018/06/25 16:18:20 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	display(t_env *e, int i_x, t_pt pt, double ang)
 
 	i = 0;
 	h = e->cam.dist / (dist(e->cam.p, pt) * cos(ang));
-	printf("pt : %f %f %f\n",pt.x, pt.y, pt.z);
+	// printf("pt : %f %f %f\n",pt.x, pt.y, pt.z);
 	s_w = h > DIMY ? 0 : (DIMY - h) / 2;
 	e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
 	while (i < DIMY)
@@ -52,12 +52,11 @@ void	algo(t_env *e)
 	int		i_x;
 
 	i_x = 0;
-	//printf("dir : %f %f %f\n",e->cam.dir.x, e->cam.dir.y, e->cam.dir.z);
 	bal = apply(vecpro(e->cam.v_u, -DIMX / 2), e->cam.dir);
 	while (i_x < DIMX)
 	{
-		display(e, i_x, scan(e, (bal = apply(e->cam.v_u, bal))),
-			atan((i_x - DIMX / 2) / e->cam.dist));
+		bal = apply(e->cam.v_u, bal);
+		display(e, i_x, scan(e, bal), atan((i_x - DIMX / 2) / e->cam.dist));
 		i_x++;
 	}
 	mlx_put_image_to_window(e->mlx.ptr, e->mlx.win, e->mlx.imgptr, 0, 0);

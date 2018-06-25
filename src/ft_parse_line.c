@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:53:03 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/20 17:06:51 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/06/25 15:59:41 by kdouveno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,12 @@ void	manage_ll(t_env *e, t_pos *pos)
 	|| pos->l_l->m.x < pos->x))
 	{
 		if (a)
+		{
 			pos->l_l->yd = add_wall(e, pos->l_l);
+			pos->l_l->yd->m = (t_pt){pos->l_l->m.x + 1, pos->l_l->m.y + 1, 0};
+			pos->l_l->yd->n = (t_vec){0, 1, 0};
+
+		}
 		check_peer(e, pos);
 		pos->l_l = pos->l_l->next;
 		a = 1;
