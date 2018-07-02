@@ -37,9 +37,7 @@ void	display(t_env *e, int i_x, t_pt_v ptv, double ang)
 			if (i < s_w)
 				e->mlx.img[i * DIMX + i_x] = 0x0022F5;
 			else if (i < e_w)
-			{
 				put_txt_wall(e, ptv, i_x, i, s_w, h);
-			}
 			else
 				e->mlx.img[i * DIMX + i_x] = 0x111111;
 		//}

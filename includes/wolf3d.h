@@ -149,7 +149,6 @@ typedef struct			s_text
 	int					*imgwall2;
 	int					*imgwall3;
 	int					*imgwall4;
-	int					imgarg[3];
 }						t_text;
 
 static const t_params	g_meta_chars[] = {
