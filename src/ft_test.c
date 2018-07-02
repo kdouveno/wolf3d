@@ -125,8 +125,8 @@ int		ft_test(t_env *e)
 	t_base *save;
 
 	save = e->labstart;
- 	// ft_test_rec(save, 1);
-	// ft_test_next(e, 1);
-	ft_test_complet(e);
+ 	ft_test_rec(save, 1);
+	//ft_test_next(e, 1);
+	//ft_test_complet(e);
 	return (0);
 }

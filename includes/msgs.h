@@ -21,4 +21,5 @@
 # define MALLOC_ERROR "Dynamic allocation failed"
 # define PORTAL_ERROR "Portal Placement Failur: Portals must be placed on walls"
 # define NO_START_ERROR "No start error: the maze has no entrance"
+# define TXT_ERROR "A texture is missing"
 #endif

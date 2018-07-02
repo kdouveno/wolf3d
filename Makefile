@@ -15,6 +15,7 @@ NAME = wolf
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
+
 SRC_DIR =	src/
 SRC_LIST =	main.c\
 			parser.c \
@@ -26,6 +27,7 @@ SRC_LIST =	main.c\
 			scan.c \
 			equation.c \
 			keys.c \
+			textures.c \
 
 OBJS = $(SRC_LIST:.c=.o)
 SRCS = $(addprefix $(SRC_DIR),$(SRC_LIST))
@@ -50,9 +52,9 @@ $(NAME): $(OBJS) libft/*.c libft/includes/libft.h
 	@$(CC) $(FLAGS) $(FM) libmlx.a libft/libft.a $(OBJS) -o $@
 	@printf "$(MAGENTA)%15s : $(GREEN)succesfuly made!%20.0d$(WHITE)\n" $(NAME) 0
 
-pain: $(OBJS) libft_gp/*.c libft_gp/libft.h
+pain: $(OBJS) libft_gp/*.c
 	@make -C libft_gp
-	@$(CC) $(OBJS) ../minilibx/libmlx_Linux.a -lX11 -lXext -lm libft_gp/libft.a -o $@
+	@$(CC) $(OBJS) ../minilibx/libmlx_Linux.a -lX11 -lXext -lbsd -lm libft_gp/libft.a -o $@
 	@printf "$(MAGENTA)%15s : $(GREEN)succesfuly made!%20.0d$(WHITE)\n" $(NAME) 0
 
 %.o: $(SRC_DIR)%.c includes/wolf3d.h

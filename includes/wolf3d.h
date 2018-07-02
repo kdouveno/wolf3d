@@ -17,13 +17,14 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-//# include "../../minilibx/mlx.h"
-//# include "/usr/include/X11/X.h"
+# include "mlx_int.h"
+//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+# include "../../minilibx/mlx.h"
+# include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
-# define FOV 85
+# define FOV 66
 # define ROT 5
 # define MOV 0.1
 # include <fcntl.h>
@@ -44,6 +45,12 @@ typedef struct			s_3d
 
 typedef t_3d			t_vec;
 typedef t_3d			t_pt;
+
+typedef struct			s_pt_v
+{
+	t_pt				p;
+	t_vec				v;
+}						t_pt_v;
 
 /*
 **	Wolf3d Labyrinth shape storage
@@ -131,6 +138,19 @@ typedef struct			s_params
 	char				match;
 }						t_params;
 
+typedef struct			s_text
+{
+	void				*wall1;
+	void				*wall2;
+	void				*wall3;
+	void				*wall4;
+
+	int					*imgwall1;
+	int					*imgwall2;
+	int					*imgwall3;
+	int					*imgwall4;
+	int					imgarg[3];
+}						t_text;
 
 static const t_params	g_meta_chars[] = {
 	{'o', 0, 0, '\0'},
@@ -162,6 +182,7 @@ typedef struct			s_env
 	t_mlx				mlx;
 	t_base				*labstart;
 	t_cam				cam;
+	t_text				txt;
 }						t_env;
 
 void					parse(t_env *e, char *path);
@@ -177,9 +198,11 @@ void					wall_left(t_env *e, t_pos *pos);
 void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
+int						txt(t_env *e);
+void					put_txt_wall(t_env *e, t_pt_v ptv, int x, int y, int s_w, int h);
 
 void					algo(t_env *e);
-t_pt					scan(t_env *e, t_vec v);
+t_pt_v					scan(t_env *e, t_vec v);
 
 int 					my_key(int key, t_env *e);
 t_base					**get_base(t_base *base, t_metadir dir);

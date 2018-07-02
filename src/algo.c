@@ -17,7 +17,7 @@ double	dist(t_pt p1, t_pt p2)
 	return (hypot(p1.x - p2.x, p1.y - p2.y));
 }
 
-void	display(t_env *e, int i_x, t_pt pt, double ang)
+void	display(t_env *e, int i_x, t_pt_v ptv, double ang)
 {
 	double	h;
 	int		s_w;
@@ -25,23 +25,24 @@ void	display(t_env *e, int i_x, t_pt pt, double ang)
 	int		i;
 
 	i = 0;
-	h = e->cam.dist / (dist(e->cam.p, pt) * cos(ang));
-	// printf("pt : %f %f %f\n",pt.x, pt.y, pt.z);
+	h = e->cam.dist / (dist(e->cam.p, ptv.p) * cos(ang));
 	s_w = h > DIMY ? 0 : (DIMY - h) / 2;
 	e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
 	while (i < DIMY)
 	{
-		if (i_x == DIMX / 2)
+		/*if (i_x == DIMX / 2)
 			e->mlx.img[i * DIMX + i_x] = 0xFF0000;
 		else
-		{
+		{*/
 			if (i < s_w)
-				e->mlx.img[i * DIMX + i_x] = 0x1015FF;
+				e->mlx.img[i * DIMX + i_x] = 0x0022F5;
 			else if (i < e_w)
-				e->mlx.img[i * DIMX + i_x] = 0xFFFFFF;
+			{
+				put_txt_wall(e, ptv, i_x, i, s_w, h);
+			}
 			else
-				e->mlx.img[i * DIMX + i_x] = 0xFFFF00;
-		}
+				e->mlx.img[i * DIMX + i_x] = 0x111111;
+		//}
 		i++;
 	}
 }

@@ -30,11 +30,12 @@ int		init(t_env *e)
 	|| (e->mlx.img = (int*)mlx_get_data_addr(e->mlx.imgptr, e->mlx.imgarg,
 		e->mlx.imgarg + 1, e->mlx.imgarg + 2)) == NULL)
 		error(e, MLX_ERROR);
+	if (txt(e) == 1)
+		error(e,TXT_ERROR);
 	e->cam.fov = FOV;
 	e->cam.dist = (double)(DIMX / 2) / tan(rad(FOV / 2));
 	e->cam.dir = (t_vec){e->cam.dist, 0, 0};
 	printf("v: %f %f %f\n", e->cam.dir.x, e->cam.dir.y, e->cam.dir.z);
-
 	e->cam.v_u = (t_vec){0, 1, 0};
 	algo(e);
 	printf("x: %f y :%f\n",e->cam.p.x, e->cam.p.y);
@@ -53,5 +54,6 @@ int		main(int argc, char **argv)
 	parse(&env, argv[1]);
 	// ft_test(&env);
 	init(&env);
+
 	return (0);
 }
