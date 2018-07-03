@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 16:03:15 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/25 15:40:36 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/07/03 18:42:49 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ int		ft_test(t_env *e)
 	t_base *save;
 
 	save = e->labstart;
- 	ft_test_rec(save, 1);
-	//ft_test_next(e, 1);
+ 	//ft_test_rec(save, 1);
+	ft_test_next(e, 1);
 	//ft_test_complet(e);
 	return (0);
 }

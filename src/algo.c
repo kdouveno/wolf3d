@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:37:08 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/25 16:18:20 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/07/03 18:31:47 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	dist(t_pt p1, t_pt p2)
 	return (hypot(p1.x - p2.x, p1.y - p2.y));
 }
 
-void	display(t_env *e, int i_x, t_pt_v ptv, double ang)
+void	display(t_env *e, int i_x, t_pt_w ptw, double ang)
 {
 	double	h;
 	int		s_w;
@@ -25,7 +25,7 @@ void	display(t_env *e, int i_x, t_pt_v ptv, double ang)
 	int		i;
 
 	i = 0;
-	h = e->cam.dist / (dist(e->cam.p, ptv.p) * cos(ang));
+	h = e->cam.dist / (dist(e->cam.p, ptw.p) * cos(ang));
 	s_w = h > DIMY ? 0 : (DIMY - h) / 2;
 	e_w = h > DIMY ? DIMY - 1 : (DIMY + h) / 2;
 	while (i < DIMY)
@@ -35,9 +35,10 @@ void	display(t_env *e, int i_x, t_pt_v ptv, double ang)
 		else
 		{*/
 			if (i < s_w)
+				//e->mlx.img[i * DIMX + i_x] = 0x0022F5;
 				e->mlx.img[i * DIMX + i_x] = 0x0022F5;
 			else if (i < e_w)
-				put_txt_wall(e, ptv, i_x, i, s_w, h);
+				put_txt_wall(e, ptw, i_x, i, s_w, h);
 			else
 				e->mlx.img[i * DIMX + i_x] = 0x111111;
 		//}

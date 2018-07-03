@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:57:45 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/25 16:19:11 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/07/03 18:38:38 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		main(int argc, char **argv)
 		return (0);
 	env.labstart = NULL;
 	parse(&env, argv[1]);
-	// ft_test(&env);
+	ft_test(&env);
 	init(&env);
 
 	return (0);

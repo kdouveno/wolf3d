@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gperez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/03 17:35:52 by gperez            #+#    #+#             */
+/*   Updated: 2018/07/03 18:34:40 by gperez           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf3d.h"
 
 int		txt(t_env *e)
@@ -5,8 +17,8 @@ int		txt(t_env *e)
 	int	w;
 	int	h;
 
-	w = 64;
-	h = 64;
+	w = TXT_L;
+	h = TXT_L;
 	if ((e->txt.wall1 =
 	mlx_xpm_file_to_image(e->mlx.ptr, "textures/redbrick.xpm" ,&w ,&h))
 	== NULL || (e->txt.wall2 =
@@ -28,21 +40,26 @@ int		txt(t_env *e)
 	return (0);
 }
 
-void	put_txt_wall(t_env *e, t_pt_v ptv, int x, int y, int s_w, int h)
+void	put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h)
 {
 	double	xt;
 	double	yt;
 
-	if (ptv.v.x == 1)
+	yt = (y - s_w) * TXT_L / h;
+	if (ptw.w.n.x == 1)
 	{
-		xt = (ptv.p.y - (int)ptv.p.y) * 64;
-		yt = (y - s_w) * 64 / h;
-		e->mlx.img[y * DIMX + x] = e->txt.imgwall1[(int)(yt * 64 + xt)];
+		xt = (ptw.p.y - (int)ptw.p.y) * TXT_L;
+		if (ptw.w.m.y == ptw.w.ceil->m.y)
+			e->mlx.img[y * DIMX + x] = e->txt.imgwall1[(int)(yt * TXT_L + xt)];
+		else
+			e->mlx.img[y * DIMX + x] = e->txt.imgwall3[(int)(yt * TXT_L + xt)];
 	}
 	else
 	{
-		xt = (ptv.p.x - (int)ptv.p.x) * 64;
-		yt = (y - s_w) * 64 / h;
-		e->mlx.img[y * DIMX + x] = e->txt.imgwall2[(int)(yt * 64 + xt)];
+		xt = (ptw.p.x - (int)ptw.p.x) * TXT_L;
+		if (ptw.w.m.x == ptw.w.ceil->m.x)
+			e->mlx.img[y * DIMX + x] = e->txt.imgwall2[(int)(yt * TXT_L + xt)];
+		else
+			e->mlx.img[y * DIMX + x] = e->txt.imgwall4[(int)(yt * TXT_L + xt)];
 	}
 }

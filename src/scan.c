@@ -6,29 +6,29 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 11:43:52 by gperez            #+#    #+#             */
-/*   Updated: 2018/06/25 16:18:47 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/07/03 18:14:16 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-t_pt_v	vertical_bitch(t_env *e, t_base *b, t_metadir dir)
+t_pt_w	vertical_bitch(t_env *e, t_base *b, t_metadir dir)
 {
 	while ((*get_base(b, dir))->obj.type != 'w')
 		b = *get_base(b, dir);
-	return ((t_pt_v){(t_pt){e->cam.p.x, b->m.x, 0.5}, b->n});
+	return ((t_pt_w){(t_pt){e->cam.p.x, b->m.x, 0.5}, *b});
 }
 
-t_pt_v	entre_deux(t_metadir dir, t_base *start, double val[4])
+t_pt_w	entre_deux(t_metadir dir, t_base *start, double val[4])
 {
 	if (dir == UP || dir == DOWN)
-		return ((t_pt_v){(t_pt){(start->m.y - val[1]) / val[0],
-			start->m.y, 0.5}, start->n});
+		return ((t_pt_w){(t_pt){(start->m.y - val[1]) / val[0],
+			start->m.y, 0.5}, *start});
 	else
-		return ((t_pt_v){(t_pt){start->m.x, val[3], 0.5}, start->n});
+		return ((t_pt_w){(t_pt){start->m.x, val[3], 0.5}, *start});
 }
 
-t_pt_v	scan(t_env *e, t_vec v)
+t_pt_w	scan(t_env *e, t_vec v)
 {
 	t_base		*start;
 	double		val[4];

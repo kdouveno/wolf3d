@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/06/25 16:26:16 by kdouveno         ###   ########.fr       */
+/*   Updated: 2018/07/03 18:27:38 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-# include "mlx_int.h"
-//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-# include "../../minilibx/mlx.h"
-# include "/usr/include/X11/X.h"
+# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+//# include "../../minilibx/mlx.h"
+//# include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
 # define FOV 66
 # define ROT 5
 # define MOV 0.1
+# define TXT_L 64
 # include <fcntl.h>
 # include <math.h>
 
@@ -46,11 +46,6 @@ typedef struct			s_3d
 typedef t_3d			t_vec;
 typedef t_3d			t_pt;
 
-typedef struct			s_pt_v
-{
-	t_pt				p;
-	t_vec				v;
-}						t_pt_v;
 
 /*
 **	Wolf3d Labyrinth shape storage
@@ -87,6 +82,12 @@ typedef struct			s_base
 	struct s_base		*ceil;
 	struct s_base		*next;
 }						t_base;
+
+typedef struct			s_pt_w
+{
+	t_pt				p;
+	t_base				w;
+}						t_pt_w;
 
 typedef struct			s_cam
 {
@@ -198,10 +199,10 @@ void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 int						txt(t_env *e);
-void					put_txt_wall(t_env *e, t_pt_v ptv, int x, int y, int s_w, int h);
+void					put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h);
 
 void					algo(t_env *e);
-t_pt_v					scan(t_env *e, t_vec v);
+t_pt_w					scan(t_env *e, t_vec v);
 
 int 					my_key(int key, t_env *e);
 t_base					**get_base(t_base *base, t_metadir dir);
