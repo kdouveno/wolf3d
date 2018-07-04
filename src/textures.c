@@ -40,12 +40,15 @@ int		txt(t_env *e)
 	return (0);
 }
 
-void	put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h)
+void	put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h, t_vec v)
 {
 	double	xt;
 	double	yt;
 
-	yt = (y - s_w) * TXT_L / h;
+	if (s_w == 0)
+		yt = detect_pxl_txt(e, ptw, v, s_w);
+	else
+		yt = s_w * TXT_L / h;
 	if (ptw.w.n.x == 1)
 	{
 		xt = (ptw.p.y - (int)ptw.p.y) * TXT_L;
@@ -62,4 +65,10 @@ void	put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h)
 		else
 			e->mlx.img[y * DIMX + x] = e->txt.imgwall4[(int)(yt * TXT_L + xt)];
 	}
+}
+
+void	floor_casting(t_env *e, t_pt_w ptw, int x, int y)
+{
+	(void)ptw;
+	e->mlx.img[y * DIMX + x] = 0x0022F5;
 }

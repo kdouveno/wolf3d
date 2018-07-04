@@ -122,10 +122,10 @@ void	ft_test_complet(t_env *e)
 
 int		ft_test(t_env *e)
 {
-	t_base *save;
+/*	t_base *save;
 
 	save = e->labstart;
- 	//ft_test_rec(save, 1);
+ */	//ft_test_rec(save, 1);
 	ft_test_next(e, 1);
 	//ft_test_complet(e);
 	return (0);

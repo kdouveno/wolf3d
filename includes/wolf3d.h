@@ -17,9 +17,9 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-//# include "../../minilibx/mlx.h"
-//# include "/usr/include/X11/X.h"
+//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+# include "../../minilibx/mlx.h"
+# include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2
@@ -199,7 +199,9 @@ void					wall_up(t_env *e, t_pos *pos);
 void					finish(t_env *e, t_pos *pos);
 void					check_peer(t_env *e, t_pos *pos);
 int						txt(t_env *e);
-void					put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h);
+void					put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h, t_vec v);
+void					floor_casting(t_env *e, t_pt_w ptw, int x, int y);
+int						detect_pxl_txt(t_env *e, t_pt_w ptw, t_vec v, int s_w);
 
 void					algo(t_env *e);
 t_pt_w					scan(t_env *e, t_vec v);
