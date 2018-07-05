@@ -52,7 +52,7 @@ void	put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h, t_vec v)
 	if (ptw.w.n.x == 1)
 	{
 		xt = (ptw.p.y - (int)ptw.p.y) * TXT_L;
-		if (ptw.w.m.y == ptw.w.ceil->m.y)
+		if (ptw.w.m.x == ptw.w.ceil->m.x)
 			e->mlx.img[y * DIMX + x] = e->txt.imgwall1[(int)(yt * TXT_L + xt)];
 		else
 			e->mlx.img[y * DIMX + x] = e->txt.imgwall3[(int)(yt * TXT_L + xt)];
