@@ -35,7 +35,7 @@ t_pt_w	scan(t_env *e, t_vec v)
 	int			y;
 	t_metadir	dir;
 
-	if (v.x == 0)
+	if ((int)v.x == 0)
 		return (vertical_bitch(e, e->cam.cur, v.y > 0 ? DOWN : UP));
 	else
 	{
