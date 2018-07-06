@@ -38,7 +38,6 @@ int		init(t_env *e)
 	printf("v: %f %f %f\n", e->cam.dir.x, e->cam.dir.y, e->cam.dir.z);
 	e->cam.v_u = (t_vec){0, 1, 0};
 	algo(e);
-	printf("x: %f y :%f\n",e->cam.p.x, e->cam.p.y);
 	mlx_hook(e->mlx.win, KeyPress, KeyPressMask, my_key, e);
 	mlx_loop(e->mlx.ptr);
 	return (0);

@@ -201,7 +201,6 @@ void					check_peer(t_env *e, t_pos *pos);
 int						txt(t_env *e);
 void					put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h, t_vec v);
 void					floor_casting(t_env *e, t_pt_w ptw, int x, int y);
-int						detect_pxl_txt(t_env *e, t_pt_w ptw, t_vec v, int s_w);
 
 void					algo(t_env *e);
 t_pt_w					scan(t_env *e, t_vec v);

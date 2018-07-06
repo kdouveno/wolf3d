@@ -44,11 +44,10 @@ void	put_txt_wall(t_env *e, t_pt_w ptw, int x, int y, int s_w, int h, t_vec v)
 {
 	double	xt;
 	double	yt;
+	int		ofs;
 
-	if (s_w == 0)
-		yt = detect_pxl_txt(e, ptw, v, s_w);
-	else
-		yt = s_w * TXT_L / h;
+	ofs = h > DIMX ? (h - DIMX) / 2 : 0;
+	yt = (s_w + ofs) * TXT_L / h;
 	if (ptw.w.n.x == 1)
 	{
 		xt = (ptw.p.y - (int)ptw.p.y) * TXT_L;

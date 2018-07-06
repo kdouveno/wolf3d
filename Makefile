@@ -28,7 +28,6 @@ SRC_LIST =	main.c\
 			equation.c \
 			keys.c \
 			textures.c \
-			detect_pxl.c \
 
 OBJS = $(SRC_LIST:.c=.o)
 SRCS = $(addprefix $(SRC_DIR),$(SRC_LIST))
