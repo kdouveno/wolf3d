@@ -74,7 +74,6 @@ void	k_escape(t_env *e)
 
 int my_key(int key, t_env *e)
 {
-	(void)e;
 	printf("%d\n", key);
 	if (key == 0 || key == 1 || key == 2 || key == 13
 		|| key == 100 || key == 115 || key == 122 || key == 113)

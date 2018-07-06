@@ -17,16 +17,17 @@ double	dist(t_pt p1, t_pt p2)
 	return (hypot(p1.x - p2.x, p1.y - p2.y));
 }
 
-void	display(t_env *e, int i_x, t_pt_w ptw, double ang, t_vec bal)
+void	display(t_env *e, int i_x, t_pt_w ptw, t_vec bal)
 {
 	double	h;
 	int		s_w;
 	int		e_w;
 	int		i;
 
-	bal = apply(vecpro((t_vec){0,0,1}, -DIMY / 2), bal);
+	//bal = apply(vecpro((t_vec){0,0,1}, -DIMY / 2), bal);
 	i = 0;
-	h = e->cam.dist / (dist(e->cam.p, ptw.p) * cos(ang));
+	h = e->cam.dist / (dist(e->cam.p, ptw.p)
+		* cos(atan((i_x - DIMX / 2) / e->cam.dist)));
 	s_w = h > DIMY ? 0 : (DIMY - h) / 2;
 	e_w = h > DIMY ? DIMY : (DIMY + h) / 2;
 	while (i < DIMY)
@@ -51,7 +52,7 @@ void	algo(t_env *e)
 	while (i_x < DIMX)
 	{
 		bal = apply(e->cam.v_u, bal);
-		display(e, i_x, scan(e, bal), atan((i_x - DIMX / 2) / e->cam.dist), bal);
+		display(e, i_x, scan(e, bal), bal);
 		i_x++;
 	}
 	mlx_put_image_to_window(e->mlx.ptr, e->mlx.win, e->mlx.imgptr, 0, 0);
