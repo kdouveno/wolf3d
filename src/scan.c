@@ -16,7 +16,8 @@ t_pt_w	vertical_bitch(t_env *e, t_base *b, t_metadir dir)
 {
 	while ((*get_base(b, dir))->obj.type != 'w')
 		b = *get_base(b, dir);
-	return ((t_pt_w){(t_pt){e->cam.p.x, b->m.x, 0.5}, *b});
+	return ((t_pt_w){(t_pt){e->cam.p.x,
+		dir == DOWN ? b->m.y + 1 : b->m.y, 0.5}, *b});
 }
 
 t_pt_w	entre_deux(t_metadir dir, t_base *start, double val[4])

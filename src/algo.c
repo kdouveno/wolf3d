@@ -24,6 +24,7 @@ void	display(t_env *e, int i_x, t_pt_w ptw, double ang, t_vec bal)
 	int		e_w;
 	int		i;
 
+	printf("x: %f, y: %f\n", bal.x, bal.y);
 	bal = apply(vecpro((t_vec){0,0,1}, -DIMY / 2), bal);
 	i = 0;
 	h = e->cam.dist / (dist(e->cam.p, ptw.p) * cos(ang));
