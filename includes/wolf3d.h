@@ -6,7 +6,7 @@
 /*   By: kdouveno <kdouveno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 14:36:29 by kdouveno          #+#    #+#             */
-/*   Updated: 2018/07/03 18:27:38 by gperez           ###   ########.fr       */
+/*   Updated: 2018/07/08 16:51:07 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "msgs.h"
 # include "libft.h"
 # include "mlx.h"
-//# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
-# include "../../minilibx/mlx.h"
-# include "/usr/include/X11/X.h"
+# include "/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h"
+//# include "../../minilibx/mlx.h"
+//# include "/usr/include/X11/X.h"
 # define DIMX 750
 # define DIMY 750
 # define NBR_PARAM_MAX 2

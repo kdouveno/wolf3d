@@ -6,7 +6,7 @@
 /*   By: gperez <gperez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:37:08 by gperez            #+#    #+#             */
-/*   Updated: 2018/07/03 18:31:47 by gperez           ###   ########.fr       */
+/*   Updated: 2018/07/08 16:59:39 by gperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	display(t_env *e, int i_x, t_pt_w ptw, t_vec bal)
 	{
 		if (i < s_w)
 			floor_casting(e, ptw, i_x, i);
-		else if (i < e_w)
+		else if (i < e_w  - 1 || e_w == DIMY)
 			put_txt_wall(e, ptw, i_x, i, i - s_w, h, bal);
 		else
 			e->mlx.img[i * DIMX + i_x] = 0x550F44;
